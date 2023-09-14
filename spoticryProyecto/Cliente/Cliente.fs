@@ -1,4 +1,5 @@
-﻿open System
+﻿//version funcional
+open System
 open System.IO
 open System.Net.Sockets
 open NAudio.Wave
@@ -219,7 +220,7 @@ let playSong2 (stream: NetworkStream) =
         Console.WriteLine("Playlist no encontrada.")
 
 
-let playSong (stream: NetworkStream) =
+let playSong (stream: NetworkStream) = //version buena 1.0
     Console.Write("Ingresa el nombre de la canción: ")
     let songName = Console.ReadLine()
 
@@ -248,131 +249,144 @@ let playSong (stream: NetworkStream) =
     let mutable currentPosition = 0.0
     let mutable isPlaying = true
 
-    // Opciones para la canción
-    while isPlaying do
-        Console.WriteLine("Opciones de la canción:")
-        Console.WriteLine("f. Adelantar canción")
-        Console.WriteLine("r. Retroceder canción")
-        Console.WriteLine("p. Pausar/Reanudar canción")
-        Console.WriteLine("q. Volver al menú principal")
-        Console.Write("Selecciona una opción: ")
+    try
+        // Opciones para la canción
+        while isPlaying do
+            Console.WriteLine("Opciones de la canción:")
+            Console.WriteLine("f. Adelantar canción")
+            Console.WriteLine("r. Retroceder canción")
+            Console.WriteLine("p. Pausar/Reanudar canción")
+            Console.WriteLine("q. Volver al menú principal")
+            Console.Write("Selecciona una opción: ")
 
-        let songOption = Console.ReadLine()
+            let songOption = Console.ReadLine()
 
-        match songOption.ToLower() with
-        | "f" -> // El cliente quiere adelantar la canción
-            mp3Reader.Skip(10) // Adelanta 10 segundos
+            match songOption.ToLower() with
+            | "f" -> // El cliente quiere adelantar la canción
+                mp3Reader.Skip(10) // Adelanta 10 segundos
 
-        | "r" -> // El cliente quiere retroceder la canción
-            let currentPosition = mp3Reader.CurrentTime
-            let newPosition = currentPosition.Add(TimeSpan.FromSeconds(-10.0))
-            mp3Reader.CurrentTime <- newPosition
+            | "r" -> // El cliente quiere retroceder la canción
+                let currentPosition = mp3Reader.CurrentTime
+                let newPosition = currentPosition.Add(TimeSpan.FromSeconds(-10.0))
+                mp3Reader.CurrentTime <- newPosition
 
-        | "p" -> // El cliente quiere pausar/reanudar la canción
-            if outputDevice.PlaybackState = PlaybackState.Playing then
-                outputDevice.Pause()
-                Console.WriteLine("Canción pausada.")
+            | "p" -> // El cliente quiere pausar/reanudar la canción
+                if outputDevice.PlaybackState = PlaybackState.Playing then
+                    outputDevice.Pause()
+                    Console.WriteLine("Canción pausada.")
+                    isPlaying <- false
+                else
+                    outputDevice.Play()
+                    Console.WriteLine("Reanudando la canción.")
+                    isPlaying <- true
+
+            | "q" -> // El cliente quiere volver al menú principal
+                Console.WriteLine("Volviendo al menú principal...")
                 isPlaying <- false
-            else
-                outputDevice.Play()
-                Console.WriteLine("Reanudando la canción.")
-                isPlaying <- true
 
-        | "q" -> // El cliente quiere volver al menú principal esta falta implementarla bien
-            Console.WriteLine("Volviendo al menú principal...")
-            isPlaying <- false
+            | _ -> 
+                Console.WriteLine("Opción no válida")
 
-        | _ -> 
-            Console.WriteLine("Opción no válida")
+    finally
+        // Ensure proper cleanup even if an exception is thrown
+        outputDevice.Stop()
+        outputDevice.Dispose() // Dispose of the output device
+        mp3Reader.Dispose()
+        memoryStream.Dispose() // Dispose of the memory stream
+        fileStream.Close()
+        File.Delete(tempFilePath)
+
+    Console.WriteLine("Canción terminada.")
+
 
 let main =
     try
         use client = new TcpClient(serverAddr, port)
         use stream = client.GetStream()
 
-        // Recibir mensaje desde servidor
-        Console.WriteLine("a. Reproducir Musica")
-        Console.WriteLine("b. Criterios de Busqueda")
-        Console.WriteLine("c. Crear Playlist")
-        Console.WriteLine("q. Salir")
-        Console.Write("Selecciona una opción: ")
-        // Recibir una letra desde la consola
-        
-        let letter = Console.ReadLine()
-
-        // Enviar la letra al servidor
-        let letterBytes = System.Text.Encoding.UTF8.GetBytes(letter)
-        stream.Write(letterBytes, 0, letterBytes.Length)
-
-        match letter with
-        | "a" -> // El cliente quiere reproducir una canción
-            // Recibir los datos de la canción del servidor
-            Console.WriteLine("a. Reproducir una cancion")
-            Console.WriteLine("b. Reproducir un playlist")
+        // Bucle principal para mantener al cliente esperando nuevas solicitudes
+        let mutable continueRunning = true
+        while continueRunning do
+            Console.WriteLine("a. Reproducir Musica")
+            Console.WriteLine("b. Criterios de Busqueda")
+            Console.WriteLine("c. Crear Playlist")
+            Console.WriteLine("q. Salir")
             Console.Write("Selecciona una opción: ")
-            
+
             // Recibir una letra desde la consola
-            let letter3 = Console.ReadLine()
+            let letter = Console.ReadLine()
 
             // Enviar la letra al servidor
-            let letterBytes = System.Text.Encoding.UTF8.GetBytes(letter3)
+            let letterBytes = System.Text.Encoding.UTF8.GetBytes(letter)
             stream.Write(letterBytes, 0, letterBytes.Length)
 
-            match letter3 with
-            | "a" -> 
-                playSong stream
-            | "b" ->    
-                createPlaylist ()
-                //addToPlaylist2 ()
+            match letter with
+            | "a" -> // El cliente quiere reproducir una canción
+                // Recibir los datos de la canción del servidor
+                Console.WriteLine("a. Reproducir una cancion")
+                Console.WriteLine("b. Reproducir un playlist")
+                Console.Write("Selecciona una opción: ")
+
+                // Recibir una letra desde la consola
+                let letter3 = Console.ReadLine()
+
+                // Enviar la letra al servidor
+                let letterBytes = System.Text.Encoding.UTF8.GetBytes(letter3)
+                stream.Write(letterBytes, 0, letterBytes.Length)
+
+                match letter3 with
+                | "a" -> 
+                    playSong stream
+                | "b" ->    
+                    createPlaylist ()
+                    playSong2 stream 
+                | _ ->  ()
+
+            | "b" -> // El cliente quiere la lista de canciones
+                Console.WriteLine("a. Canciones en Espannol")
+                Console.WriteLine("b. Canciones menores a 4 minutos")
+                Console.WriteLine("c. Canciones que empiecen con la letra H")
+                Console.Write("Selecciona una opción: ")
                 
-                playSong2 stream 
-            | _ ->  ()
+                // Recibir una letra desde la consola
+                Console.Write("Ingresa una letra: ")
+                let letter2 = Console.ReadLine()
 
-         | "b" -> // El cliente quiere la lista de canciones
-            Console.WriteLine("a. Canciones en Espannol")
-            Console.WriteLine("b. Canciones menores a 4 minutos")
-            Console.WriteLine("c. Canciones que empiecen con la letra H")
-            Console.Write("Selecciona una opción: ")
-            
-            // Recibir una letra desde la consola
-            Console.Write("Ingresa una letra: ")
-            let letter2 = Console.ReadLine()
+                // Enviar la letra al servidor
+                let letterBytes = System.Text.Encoding.UTF8.GetBytes(letter2)
+                stream.Write(letterBytes, 0, letterBytes.Length)
 
-            // Enviar la letra al servidor
-            let letterBytes = System.Text.Encoding.UTF8.GetBytes(letter2)
-            stream.Write(letterBytes, 0, letterBytes.Length)
+                match letter2 with
+                | "a" | "b" | "c" -> 
+                    let songListBuilder = new StringBuilder()
+                    receiveSongList songListBuilder stream
+                    let songList = songListBuilder.ToString()
+                    Console.WriteLine("Lista de Canciones:")
+                    Console.WriteLine(songList)
 
-            match letter2 with
-            | "a" | "b" | "c" -> 
-                let songListBuilder = new StringBuilder()
-                receiveSongList songListBuilder stream
-                let songList = songListBuilder.ToString()
-                Console.WriteLine("Lista de Canciones:")
-                Console.WriteLine(songList)
+                    createPlaylist ()
 
-                createPlaylist () // esto hay que quitarlo y agregar mas de una cancion sera necesario?
+                    Console.WriteLine("Seleccione una canción para agregar al playlist:")
+                    let selectedSong = Console.ReadLine()
 
-                Console.WriteLine("Seleccione una canción para agregar al playlist:")
-                let selectedSong = Console.ReadLine()
+                    // Verificar si la canción seleccionada existe en la lista de canciones disponibles
+                    if songList.Contains(selectedSong) then
+                        let result = addToPlaylist2 selectedSong
+                        Console.WriteLine(result)
+                    else
+                        Console.WriteLine("La canción seleccionada no está en la lista de canciones disponibles.")
 
-                // Verificar si la canción seleccionada existe en la lista de canciones disponibles
-                if songList.Contains(selectedSong) then
-                    let result = addToPlaylist2 selectedSong
-                    Console.WriteLine(result)
-                else
-                    Console.WriteLine("La canción seleccionada no está en la lista de canciones disponibles.")
+                    imprimirPlaylist playlist
+                | _ ->  ()
 
-                imprimirPlaylist playlist
-            | _ ->  ()
+            | "c" -> 
+                    createPlaylist ()
+                    removeFromPlaylist ()
+            | "q" -> // El cliente quiere salir
+                continueRunning <- false
+            | _ -> ()
 
-        | "c" -> 
-                createPlaylist ()
-                //addToPlaylist stream
-                //imprimirPlaylist playlist
-                removeFromPlaylist ()
-                //imprimirPlaylist playlist
-
-        | _ -> ()
     with
         | ex -> 
             printfn "Error: %s" ex.Message
+

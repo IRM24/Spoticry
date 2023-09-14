@@ -1,3 +1,5 @@
+//version funcional
+
 package main
 
 import (
