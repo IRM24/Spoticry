@@ -46,14 +46,21 @@ func (l *listaCanciones) EliminarCancion(nombre string) {
 
 }
 
+var direccionCami = "C:/Users/camiu/Downloads/"
+var direccionIan = "C:/Users/Ian Calvo/Desktop/Musica/"
+
 func llenarDatos() {
-	lCanciones.agregarCancion("Hasta Que Me Olvides", "Luis Miguel", "Bolero", "C:/Users/camiu/Downloads/HastaQueMeOlvides.mp3")
-	lCanciones.agregarCancion("Te Necesito", "Luis Miguel", "Bolero", "C:/Users/camiu/Downloads/TeNecesito.mp3")
-	lCanciones.agregarCancion("Burning Love", "Elvis Presley", "Rock Clasico", "C:/Users/camiu/Downloads/Burninglove.mp3")
-	lCanciones.agregarCancion("Querida", "Juan Gabriel ft. Juanes", "Pop Latino", "C:/Users/camiu/Downloads/Querida.mp3")
-	lCanciones.agregarCancion("How Deep Is Your Love", "Bee Gees", "Soft Rock", "C:/Users/camiu/Downloads/HowDeepIsYourLove.mp3")
-	lCanciones.agregarCancion("Que Me Des Tu Carinno", "Juan Luis Guerra", "Bachata", "C:/Users/camiu/Downloads/QueMeDesTuCarinno.mp3")
-	lCanciones.agregarCancion("Human Nature", " Michael Jackson", "Pop", "C:/Users/camiu/Downloads/HumanNature.mp3")
+	lCanciones.agregarCancion("Hasta Que Me Olvides", "Luis Miguel", "Bolero", direccionIan+"HastaQueMeOlvides.mp3")
+	lCanciones.agregarCancion("Te Necesito", "Luis Miguel", "Bolero", direccionIan+"TeNecesito.mp3")
+	lCanciones.agregarCancion("Burning Love", "Elvis Presley", "Rock Clasico", direccionIan+"Burninglove.mp3")
+	lCanciones.agregarCancion("Querida", "Juan Gabriel ft. Juanes", "Pop Latino", direccionIan+"Querida.mp3")
+	lCanciones.agregarCancion("How Deep Is Your Love", "Bee Gees", "Soft Rock", direccionIan+"HowDeepIsYourLove.mp3")
+	lCanciones.agregarCancion("Que Me Des Tu Carinno", "Juan Luis Guerra", "Bachata", direccionIan+"QueMeDesTuCarinno.mp3")
+	lCanciones.agregarCancion("Human Nature", " Michael Jackson", "Pop", direccionIan+"HumanNature.mp3")
+	lCanciones.agregarCancion("Heat Above", " Michael Jackson", "Pop", direccionIan+"HeatAbove.mp3")
+	lCanciones.agregarCancion("Rock With You", " Michael Jackson", "Pop", direccionIan+"RockWithYou.mp3")
+	lCanciones.agregarCancion("When we were young", " Michael Jackson", "Pop", direccionIan+"WhenWeWereYoung.mp3")
+
 }
 
 func (l *listaCanciones) buscarCancion(nombre string) (*cancion, int) { //el retorno es el índice del producto encontrado y -1 si no existe
