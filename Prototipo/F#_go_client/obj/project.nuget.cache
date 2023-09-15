@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "3tlf/YEXYXNvrcHEWm49xkZ+S6+DqIdCenrcppin38rSBoEfCmIzmV46tZmFutdKca4pHvY+ZX66Fp3okmjQdA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Ian Calvo\\Desktop\\Winforms Server\\F#_go_client\\F#_go_client.fsproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Ian Calvo\\.nuget\\packages\\fsharp.core\\7.0.400\\fsharp.core.7.0.400.nupkg.sha512"
+  ],
+  "logs": []
+}
