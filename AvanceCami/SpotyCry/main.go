@@ -50,16 +50,16 @@ func (l *listaCanciones) EliminarCancion(nombre string) {
 
 var direccionCami = "C:/Users/camiu/Downloads/"
 
-//var direccionIan = "C:/Users/Ian Calvo/Desktop/Musica/"
+var direccionIan = "C:/Users/Ian Calvo/Desktop/Musica/"
 
 func llenarDatos() {
-	lCanciones.agregarCancion("Hasta Que Me Olvides", "Luis Miguel", "Bolero", direccionCami+"HastaQueMeOlvides.mp3")
-	lCanciones.agregarCancion("Te Necesito", "Luis Miguel", "Bolero", direccionCami+"TeNecesito.mp3")
-	lCanciones.agregarCancion("Burning Love", "Elvis Presley", "Rock Clasico", direccionCami+"Burninglove.mp3")
-	lCanciones.agregarCancion("Querida", "Juan Gabriel ft. Juanes", "Pop Latino", direccionCami+"Querida.mp3")
-	lCanciones.agregarCancion("How Deep Is Your Love", "Bee Gees", "Soft Rock", direccionCami+"HowDeepIsYourLove.mp3")
-	lCanciones.agregarCancion("Que Me Des Tu Carinno", "Juan Luis Guerra", "Bachata", direccionCami+"QueMeDesTuCarinno.mp3")
-	lCanciones.agregarCancion("Human Nature", " Michael Jackson", "Pop", direccionCami+"HumanNature.mp3")
+	lCanciones.agregarCancion("Hasta Que Me Olvides", "Luis Miguel", "Bolero", direccionIan+"HastaQueMeOlvides.mp3")
+	lCanciones.agregarCancion("Te Necesito", "Luis Miguel", "Bolero", direccionIan+"TeNecesito.mp3")
+	lCanciones.agregarCancion("Burning Love", "Elvis Presley", "Rock Clasico", direccionIan+"Burninglove.mp3")
+	lCanciones.agregarCancion("Querida", "Juan Gabriel ft. Juanes", "Pop Latino", direccionIan+"Querida.mp3")
+	lCanciones.agregarCancion("How Deep Is Your Love", "Bee Gees", "Soft Rock", direccionIan+"HowDeepIsYourLove.mp3")
+	lCanciones.agregarCancion("Que Me Des Tu Carinno", "Juan Luis Guerra", "Bachata", direccionIan+"QueMeDesTuCarinno.mp3")
+	lCanciones.agregarCancion("Human Nature", " Michael Jackson", "Pop", direccionIan+"HumanNature.mp3")
 	//lCanciones.agregarCancion("Heat Above", " Michael Jackson", "Pop", direccionIan+"HeatAbove.mp3")
 	//lCanciones.agregarCancion("Rock With You", " Michael Jackson", "Pop", direccionIan+"RockWithYou.mp3")
 	//lCanciones.agregarCancion("When we were young", " Michael Jackson", "Pop", direccionIan+"WhenWeWereYoung.mp3")
