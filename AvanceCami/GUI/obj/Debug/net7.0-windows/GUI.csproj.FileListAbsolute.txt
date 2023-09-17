@@ -40,3 +40,4 @@ C:\Users\Ian Calvo\Desktop\Spoticry\AvanceCami\GUI\obj\Debug\net7.0-windows\refi
 C:\Users\Ian Calvo\Desktop\Spoticry\AvanceCami\GUI\obj\Debug\net7.0-windows\GUI.pdb
 C:\Users\Ian Calvo\Desktop\Spoticry\AvanceCami\GUI\obj\Debug\net7.0-windows\GUI.genruntimeconfig.cache
 C:\Users\Ian Calvo\Desktop\Spoticry\AvanceCami\GUI\obj\Debug\net7.0-windows\ref\GUI.dll
+C:\Users\Ian Calvo\Desktop\Spoticry\AvanceCami\GUI\bin\Debug\net7.0-windows\Newtonsoft.Json.dll

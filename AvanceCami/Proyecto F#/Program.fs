@@ -6,6 +6,8 @@ open NAudio.Wave
 open System.Text 
 open System.Collections.Generic
 open System.Threading.Tasks
+open System.Threading
+
 
 
 let playlists = new Dictionary<string, List<string>>() 
@@ -161,7 +163,7 @@ let playSong2 (stream: NetworkStream) =
         for songName in playlist do
         printfn "  - %s" songName
         for songName in playlist do
-            printfn "Nombre de la canción: %s" songName
+            //printfn "Nombre de la canción: %s" songName
 
             Console.WriteLine($"Reproduciendo {songName}...")
 
@@ -183,19 +185,19 @@ let playSong2 (stream: NetworkStream) =
     
             outputDevice.Init(mp3Reader)
             outputDevice.Play()
-            Console.WriteLine("Reproduciendo la canción...")
+            //Console.WriteLine("Reproduciendo la canción...")
     
             let audioFileLength = mp3Reader.TotalTime.TotalSeconds
             let mutable currentPosition = 0.0
             let mutable isPlaying = true
             // Opciones para la canción
             while isPlaying do
-                Console.WriteLine("Opciones de la canción:")
-                Console.WriteLine("f. Adelantar canción")
-                Console.WriteLine("r. Retroceder canción")
-                Console.WriteLine("p. Pausar/Reanudar canción")
-                Console.WriteLine("q. Volver al menú principal")
-                Console.Write("Selecciona una opción: ")
+                //Console.WriteLine("Opciones de la canción:")
+                //Console.WriteLine("f. Adelantar canción")
+                //Console.WriteLine("r. Retroceder canción")
+                //Console.WriteLine("p. Pausar/Reanudar canción")
+                //Console.WriteLine("q. Volver al menú principal")
+                //Console.Write("Selecciona una opción: ")
 
                 let songOption = Console.ReadLine()
 
@@ -264,12 +266,12 @@ let playSong (stream: NetworkStream) = //version buena 1.0
     try
         // Opciones para la canción
         while isPlaying do
-            Console.WriteLine("Opciones de la canción:")
-            Console.WriteLine("f. Adelantar canción")
-            Console.WriteLine("r. Retroceder canción")
-            Console.WriteLine("p. Pausar/Reanudar canción")
-            Console.WriteLine("q. Volver al menú principal")
-            Console.Write("Selecciona una opción: ")
+            //Console.WriteLine("Opciones de la canción:")
+            //Console.WriteLine("f. Adelantar canción")
+            //Console.WriteLine("r. Retroceder canción")
+            //Console.WriteLine("p. Pausar/Reanudar canción")
+            //Console.WriteLine("q. Volver al menú principal")
+            //Console.Write("Selecciona una opción: ")
 
             let songOption = Console.ReadLine()
 
@@ -285,15 +287,15 @@ let playSong (stream: NetworkStream) = //version buena 1.0
             | "p" -> // El cliente quiere pausar/reanudar la canción
                 if outputDevice.PlaybackState = PlaybackState.Playing then
                     outputDevice.Pause()
-                    Console.WriteLine("Canción pausada.")
+                    //Console.WriteLine("Canción pausada.")
                     isPlaying <- false
                 else
                     outputDevice.Play()
-                    Console.WriteLine("Reanudando la canción.")
+                    //Console.WriteLine("Reanudando la canción.")
                     isPlaying <- true
 
             | "q" -> // El cliente quiere volver al menú principal
-                Console.WriteLine("Volviendo al menú principal...")
+                //Console.WriteLine("Volviendo al menú principal...")
                 isPlaying <- false
 
             | _ -> 
@@ -311,21 +313,32 @@ let playSong (stream: NetworkStream) = //version buena 1.0
 
     Console.WriteLine("Canción terminada.")
 
+
+
+
 let main =
     try
         use client = new TcpClient(serverAddr, port)
         use stream = client.GetStream()
+
+        // Leer el mensaje del servidor
+        let responseBytes = Array.zeroCreate 1024
+        let mutable bytesRead = stream.Read(responseBytes, 0, responseBytes.Length)
+        let response = System.Text.Encoding.UTF8.GetString(responseBytes, 0, bytesRead)
+
+        // Imprimir el mensaje recibido del servidor al inicio
+        Console.WriteLine(response)
 
         // Bucle principal para mantener al cliente esperando nuevas solicitudes
         let mutable continueRunning = true
         while continueRunning do
             use client = new TcpClient(serverAddr, port)
             use stream = client.GetStream()
-            Console.WriteLine("a. Reproducir Musica")
-            Console.WriteLine("b. Criterios de Busqueda")
-            Console.WriteLine("c. Crear Playlist")
-            Console.WriteLine("q. Salir")
-            Console.Write("Selecciona una opción: ")
+            //Console.WriteLine("a. Reproducir Musica")
+            //Console.WriteLine("b. Criterios de Busqueda")
+            //Console.WriteLine("c. Crear Playlist")
+            //Console.WriteLine("q. Salir")
+            //Console.Write("Selecciona una opción: ")
 
             // Recibir una letra desde la consola
             let letter = Console.ReadLine()
@@ -337,9 +350,9 @@ let main =
             match letter with
             | "a" -> // El cliente quiere reproducir una canción
                 // Recibir los datos de la canción del servidor
-                Console.WriteLine("a. Reproducir una cancion")
-                Console.WriteLine("b. Reproducir un playlist")
-                Console.Write("Selecciona una opción: ")
+                //Console.WriteLine("a. Reproducir una cancion")
+                //Console.WriteLine("b. Reproducir un playlist")
+                //Console.Write("Selecciona una opción: ")
 
                 // Recibir una letra desde la consola
                 let letter3 = Console.ReadLine()

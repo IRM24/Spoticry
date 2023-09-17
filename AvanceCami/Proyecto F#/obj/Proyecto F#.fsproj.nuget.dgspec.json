@@ -44,6 +44,16 @@
               "target": "Package",
               "version": "[2.2.0, )",
               "generatePathProperty": true
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )",
+              "generatePathProperty": true
+            },
+            "System.Text.Json": {
+              "target": "Package",
+              "version": "[7.0.3, )",
+              "generatePathProperty": true
             }
           },
           "imports": [

@@ -17,6 +17,7 @@ namespace GUI
         {
             // Iniciar el cliente F# al cargar el formulario
             StartFSharpClient();
+            this.WindowState = FormWindowState.Maximized;
         }
 
         private void StartFSharpClient()
@@ -61,10 +62,69 @@ namespace GUI
             // Obtener el mensaje del cuadro de texto
             string message = txtCancion.Text;
 
+
             // Enviar el mensaje al cliente F#
             if (fSharpClientProcess != null && !fSharpClientProcess.HasExited)
             {
+                fSharpClientProcess.StandardInput.WriteLine("a");
+                fSharpClientProcess.StandardInput.WriteLine("a");
+                //fSharpClientProcess.StandardInput.WriteLine("\n");
                 fSharpClientProcess.StandardInput.WriteLine(message);
+                txtCancion.Clear();
+            }
+            else
+            {
+                MessageBox.Show("El cliente F# no está en ejecución.");
+            }
+        }
+
+         private void btnParar_Click(object sender, EventArgs e)
+        {
+            // Obtener el mensaje del cuadro de texto
+            //string message = txtCancion.Text;
+
+
+            // Enviar el mensaje al cliente F#
+            if (fSharpClientProcess != null && !fSharpClientProcess.HasExited)
+            {
+                fSharpClientProcess.StandardInput.WriteLine("q");
+                txtCancion.Clear();
+            }
+            else
+            {
+                MessageBox.Show("El cliente F# no está en ejecución.");
+            }
+        }
+
+        private void btnAdelantar_Click(object sender, EventArgs e)
+        {
+            // Obtener el mensaje del cuadro de texto
+            //string message = txtCancion.Text;
+
+
+            // Enviar el mensaje al cliente F#
+            if (fSharpClientProcess != null && !fSharpClientProcess.HasExited)
+            {
+                fSharpClientProcess.StandardInput.WriteLine("f");
+                txtCancion.Clear();
+            }
+            else
+            {
+                MessageBox.Show("El cliente F# no está en ejecución.");
+            }
+        }
+
+
+        private void btnRetrasar_Click(object sender, EventArgs e)
+        {
+            // Obtener el mensaje del cuadro de texto
+            //string message = txtCancion.Text;
+
+
+            // Enviar el mensaje al cliente F#
+            if (fSharpClientProcess != null && !fSharpClientProcess.HasExited)
+            {
+                fSharpClientProcess.StandardInput.WriteLine("r");
                 txtCancion.Clear();
             }
             else

@@ -3,6 +3,8 @@
 package main
 
 import (
+	//"encoding/json"
+	"bytes"
 	"os"
 	"strings"
 
@@ -30,9 +32,6 @@ func (l *listaCanciones) agregarCancion(nombre string, artista string, genero st
 	if l.buscarCancionIndice(nombre) == -1 {
 		*l = append(*l, cancion{nombre: nombre, artista: artista, genero: genero, direcion: direccion})
 	}
-	//if l.buscarCancionIndice(nombre) == 1 { // revisar esa validacion
-	//	fmt.Println("Ya existe esta canción")
-	//}
 }
 
 func (l *listaCanciones) EliminarCancion(nombre string) {
@@ -60,10 +59,6 @@ func llenarDatos() {
 	lCanciones.agregarCancion("How Deep Is Your Love", "Bee Gees", "Soft Rock", direccionIan+"HowDeepIsYourLove.mp3")
 	lCanciones.agregarCancion("Que Me Des Tu Carinno", "Juan Luis Guerra", "Bachata", direccionIan+"QueMeDesTuCarinno.mp3")
 	lCanciones.agregarCancion("Human Nature", " Michael Jackson", "Pop", direccionIan+"HumanNature.mp3")
-	//lCanciones.agregarCancion("Heat Above", " Michael Jackson", "Pop", direccionIan+"HeatAbove.mp3")
-	//lCanciones.agregarCancion("Rock With You", " Michael Jackson", "Pop", direccionIan+"RockWithYou.mp3")
-	//lCanciones.agregarCancion("When we were young", " Michael Jackson", "Pop", direccionIan+"WhenWeWereYoung.mp3")
-
 }
 
 func (l *listaCanciones) buscarCancion(nombre string) (*cancion, int) { //el retorno es el índice del producto encontrado y -1 si no existe
@@ -206,12 +201,22 @@ func EliminarCancionConsola() {
 	lCanciones.EliminarCancion(nombre)
 }
 
-func ImpresionListaCanciones() {
-	fmt.Println("Lista de Canciones:")
+func EnvioListaCanciones(conn net.Conn) {
+	var buffer bytes.Buffer
+	buffer.WriteString("Lista de Canciones:\n")
 	for _, cancion := range lCanciones {
-		fmt.Printf("Nombre: %s\nArtista: %s\nGénero: %s\nDirección: %s\n\n",
-			cancion.nombre, cancion.artista, cancion.genero, cancion.direcion)
+		buffer.WriteString(fmt.Sprintf("Nombre: %s\nArtista: %s\nGénero: %s\nDirección: %s\n\n \n",
+			cancion.nombre, cancion.artista, cancion.genero, cancion.direcion))
 	}
+
+	// Enviar la lista de canciones al cliente
+	_, err := conn.Write(buffer.Bytes())
+	if err != nil {
+		fmt.Println("Error al enviar la lista de canciones al cliente:", err)
+		return
+	}
+
+	fmt.Println("Lista de canciones enviada al cliente.")
 }
 
 func sendSongListToClient(conn net.Conn) {
@@ -220,6 +225,7 @@ func sendSongListToClient(conn net.Conn) {
 	// Itera sobre la lista de canciones y envía los detalles de cada canción al cliente
 	for _, cancion := range lCanciones {
 		songInfo := fmt.Sprintf(cancion.nombre)
+		fmt.Printf("")
 		_, err := conn.Write([]byte(songInfo))
 		if err != nil {
 			fmt.Println("Error al enviar datos al cliente:", err)
@@ -326,7 +332,9 @@ func CompruebaExisteCancion(conn net.Conn) {
 func handleConnection(conn net.Conn) {
 	defer conn.Close()
 
+	//ImpresionListaCanciones(conn)
 	// Después de recibir la letra del cliente
+	EnvioListaCanciones(conn)
 	buffer := make([]byte, 1)
 	n, err := conn.Read(buffer)
 	if err != nil {
@@ -462,7 +470,7 @@ func handleConnectionCriterios(conn net.Conn) {
 
 func main() {
 	llenarDatos()
-	ImpresionListaCanciones()
+
 	//AgregarCancionConsola()
 	//EliminarCancionConsola()
 	port := "8081"
@@ -480,90 +488,6 @@ func main() {
 			fmt.Println("Error al aceptar la conexión:", err)
 			continue
 		}
-
 		go handleConnection(conn)
 	}
 }
-
-/*
-func Filter(vs listaCanciones, f func(cancion) bool) listaCanciones {
-	vsf := make(listaCanciones, 0)
-	for _, v := range vs {
-		if f(v) {
-			vsf = append(vsf, v)
-		}
-	}
-	return vsf
-}
-
-func CriteriosBusqueda() {
-
-	fmt.Println("Filtrar canciones por nombre, artista o género): ")
-	reader := bufio.NewReader(os.Stdin)
-	campo, _ := reader.ReadString('\n')
-	campo = strings.TrimSpace(campo)
-
-	fmt.Println("Ingrese el criterio de búsqueda: ")
-	criterio, _ := reader.ReadString('\n')
-	criterio = strings.TrimSpace(criterio)
-
-	var filtro func(cancion) bool
-	switch campo {
-	case "nombre":
-		filtro = func(c cancion) bool { return strings.Contains(strings.ToLower(c.nombre), strings.ToLower(criterio)) }
-	case "artista":
-		filtro = func(c cancion) bool { return strings.Contains(strings.ToLower(c.artista), strings.ToLower(criterio)) }
-	case "genero":
-		filtro = func(c cancion) bool { return strings.Contains(strings.ToLower(c.genero), strings.ToLower(criterio)) }
-	}
-
-	cancionesFiltradas := Filter(lCanciones, filtro)
-	fmt.Println("Canciones filtradas:")
-	for _, cancion := range cancionesFiltradas {
-		fmt.Printf("Nombre: %s\nArtista: %s\nGénero: %s\nDirección: %s\n\n",
-			cancion.nombre, cancion.artista, cancion.genero, cancion.direcion)
-	}
-
-	func ReproduccionMusica(cancion string) {
-	file, err := os.Open(cancion)
-	// Abre el archivo MP3
-	if err != nil {
-		fmt.Println("Error al abrir el archivo:", err)
-		return
-	}
-	defer file.Close()
-
-	// Decodifica el archivo MP3
-	decoder, err := mp3.NewDecoder(file)
-	if err != nil {
-		fmt.Println("Error al decodificar el archivo:", err)
-		return
-	}
-
-	// Crea un contexto de audio
-	ctx, err := oto.NewContext(decoder.SampleRate(), 2, 2, 8192)
-	if err != nil {
-		fmt.Println("Error al crear el contexto de audio:", err)
-		return
-	}
-	defer ctx.Close()
-
-	player := ctx.NewPlayer()
-
-	fmt.Println("Reproduciendo la canción...")
-	defer fmt.Println("Canción finalizada.")
-
-	buffer := make([]byte, 8192)
-	for {
-		_, err := decoder.Read(buffer)
-		if err != nil {
-			break
-		}
-		if _, err := player.Write(buffer); err != nil {
-			fmt.Println("Error al escribir en el reproductor:", err)
-			break
-		}
-		time.Sleep(time.Millisecond * time.Duration(20)) // Ajusta el tiempo de reproducción
-	}
-}
-}*/

@@ -13,6 +13,8 @@
     <SourceRoot Include="C:\Users\Ian Calvo\.nuget\packages\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <PkgSystem_Text_Json Condition=" '$(PkgSystem_Text_Json)' == '' ">C:\Users\Ian Calvo\.nuget\packages\system.text.json\7.0.3</PkgSystem_Text_Json>
+    <PkgNewtonsoft_Json Condition=" '$(PkgNewtonsoft_Json)' == '' ">C:\Users\Ian Calvo\.nuget\packages\newtonsoft.json\13.0.1</PkgNewtonsoft_Json>
     <PkgNAudio Condition=" '$(PkgNAudio)' == '' ">C:\Users\Ian Calvo\.nuget\packages\naudio\2.2.0</PkgNAudio>
     <PkgFSharp_Core Condition=" '$(PkgFSharp_Core)' == '' ">C:\Users\Ian Calvo\.nuget\packages\fsharp.core\7.0.400</PkgFSharp_Core>
   </PropertyGroup>

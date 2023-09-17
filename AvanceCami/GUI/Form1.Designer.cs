@@ -12,6 +12,9 @@ namespace GUI
             this.txtCancion = new System.Windows.Forms.TextBox();
             this.btnReproducir = new System.Windows.Forms.Button();
             this.txtServerResponse = new System.Windows.Forms.TextBox();
+            this.btnParar = new System.Windows.Forms.Button();
+            this.btnAdelantar = new System.Windows.Forms.Button();
+            this.btnRetrasar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtCancion
@@ -22,7 +25,7 @@ namespace GUI
             this.txtCancion.TabIndex = 0; 
 
             // 
-            // btnReproducir
+            // botones
             // 
             this.btnReproducir.Location = new System.Drawing.Point(320, 60);
             this.btnReproducir.Name = "Reproducir";
@@ -31,6 +34,30 @@ namespace GUI
             this.btnReproducir.Text = "Reproducir";
             this.btnReproducir.UseVisualStyleBackColor = true;
             this.btnReproducir.Click += new System.EventHandler(this.btnReproducir_Click);
+
+            this.btnParar.Location = new System.Drawing.Point(420, 60);
+            this.btnParar.Name = "Parar";
+            this.btnParar.Size = new System.Drawing.Size(90, 40);
+            this.btnParar.TabIndex = 1;
+            this.btnParar.Text = "Parar";
+            this.btnParar.UseVisualStyleBackColor = true;
+            this.btnParar.Click += new System.EventHandler(this.btnParar_Click);
+
+            this.btnAdelantar.Location = new System.Drawing.Point(520, 60);
+            this.btnAdelantar.Name = "Adelantar";
+            this.btnAdelantar.Size = new System.Drawing.Size(90, 40);
+            this.btnAdelantar.TabIndex = 1;
+            this.btnAdelantar.Text = "Adelantar";
+            this.btnAdelantar.UseVisualStyleBackColor = true;
+            this.btnAdelantar.Click += new System.EventHandler(this.btnAdelantar_Click);
+
+            this.btnRetrasar.Location = new System.Drawing.Point(620, 60);
+            this.btnRetrasar.Name = "Retrasar";
+            this.btnRetrasar.Size = new System.Drawing.Size(90, 40);
+            this.btnRetrasar.TabIndex = 1;
+            this.btnRetrasar.Text = "Retrasar";
+            this.btnRetrasar.UseVisualStyleBackColor = true;
+            this.btnRetrasar.Click += new System.EventHandler(this.btnRetrasar_Click);
             // 
             // txtServerResponse
             // 
@@ -39,7 +66,7 @@ namespace GUI
             this.txtServerResponse.Name = "txtServerResponse";
             this.txtServerResponse.ReadOnly = true;
             this.txtServerResponse.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtServerResponse.Size = new System.Drawing.Size(300, 600);
+            this.txtServerResponse.Size = new System.Drawing.Size(300, 700);
             this.txtServerResponse.TabIndex = 2;
             // 
             // Form1
@@ -49,6 +76,9 @@ namespace GUI
             this.ClientSize = new System.Drawing.Size(1000, 600);
             this.Controls.Add(this.txtServerResponse);
             this.Controls.Add(this.btnReproducir);
+            this.Controls.Add(this.btnParar);
+            this.Controls.Add(this.btnAdelantar);
+            this.Controls.Add(this.btnRetrasar);
             this.Controls.Add(this.txtCancion);
             this.Name = "Form1";
             this.Text = "Server Client App";
@@ -62,6 +92,9 @@ namespace GUI
         // Debes agregar estos campos privados para representar los componentes
         private System.Windows.Forms.TextBox txtCancion;
         private System.Windows.Forms.Button btnReproducir;
+        private System.Windows.Forms.Button btnParar;
         private System.Windows.Forms.TextBox txtServerResponse;
+        private System.Windows.Forms.Button btnAdelantar;
+        private System.Windows.Forms.Button btnRetrasar;
     }
 }

@@ -33,6 +33,10 @@ C:\Users\camiu\OneDrive\Documents\2023\IV Semestre\Lenguajes de Programación\Pr
 C:\Users\camiu\OneDrive\Documents\2023\IV Semestre\Lenguajes de Programación\Proyecto F#\obj\Debug\net7.0\Proyecto F#.pdb
 C:\Users\camiu\OneDrive\Documents\2023\IV Semestre\Lenguajes de Programación\Proyecto F#\obj\Debug\net7.0\Proyecto F#.genruntimeconfig.cache
 C:\Users\camiu\OneDrive\Documents\2023\IV Semestre\Lenguajes de Programación\Proyecto F#\obj\Debug\net7.0\ref\Proyecto F#.dll
+C:\Users\Ian Calvo\Desktop\Spoticry\AvanceCami\Proyecto F#\obj\Debug\net7.0\Proyecto F#.fsproj.AssemblyReference.cache
+C:\Users\Ian Calvo\Desktop\Spoticry\AvanceCami\Proyecto F#\obj\Debug\net7.0\Proyecto F#.AssemblyInfoInputs.cache
+C:\Users\Ian Calvo\Desktop\Spoticry\AvanceCami\Proyecto F#\obj\Debug\net7.0\Proyecto F#.AssemblyInfo.fs
+C:\Users\Ian Calvo\Desktop\Spoticry\AvanceCami\Proyecto F#\obj\Debug\net7.0\Proyecto F#.fsproj.CoreCompileInputs.cache
 C:\Users\Ian Calvo\Desktop\Spoticry\AvanceCami\Proyecto F#\bin\Debug\net7.0\Proyecto F#.exe
 C:\Users\Ian Calvo\Desktop\Spoticry\AvanceCami\Proyecto F#\bin\Debug\net7.0\Proyecto F#.deps.json
 C:\Users\Ian Calvo\Desktop\Spoticry\AvanceCami\Proyecto F#\bin\Debug\net7.0\Proyecto F#.runtimeconfig.json
@@ -45,6 +49,7 @@ C:\Users\Ian Calvo\Desktop\Spoticry\AvanceCami\Proyecto F#\bin\Debug\net7.0\NAud
 C:\Users\Ian Calvo\Desktop\Spoticry\AvanceCami\Proyecto F#\bin\Debug\net7.0\NAudio.Midi.dll
 C:\Users\Ian Calvo\Desktop\Spoticry\AvanceCami\Proyecto F#\bin\Debug\net7.0\NAudio.Wasapi.dll
 C:\Users\Ian Calvo\Desktop\Spoticry\AvanceCami\Proyecto F#\bin\Debug\net7.0\NAudio.WinMM.dll
+C:\Users\Ian Calvo\Desktop\Spoticry\AvanceCami\Proyecto F#\bin\Debug\net7.0\Newtonsoft.Json.dll
 C:\Users\Ian Calvo\Desktop\Spoticry\AvanceCami\Proyecto F#\bin\Debug\net7.0\cs\FSharp.Core.resources.dll
 C:\Users\Ian Calvo\Desktop\Spoticry\AvanceCami\Proyecto F#\bin\Debug\net7.0\de\FSharp.Core.resources.dll
 C:\Users\Ian Calvo\Desktop\Spoticry\AvanceCami\Proyecto F#\bin\Debug\net7.0\es\FSharp.Core.resources.dll
@@ -58,10 +63,6 @@ C:\Users\Ian Calvo\Desktop\Spoticry\AvanceCami\Proyecto F#\bin\Debug\net7.0\ru\F
 C:\Users\Ian Calvo\Desktop\Spoticry\AvanceCami\Proyecto F#\bin\Debug\net7.0\tr\FSharp.Core.resources.dll
 C:\Users\Ian Calvo\Desktop\Spoticry\AvanceCami\Proyecto F#\bin\Debug\net7.0\zh-Hans\FSharp.Core.resources.dll
 C:\Users\Ian Calvo\Desktop\Spoticry\AvanceCami\Proyecto F#\bin\Debug\net7.0\zh-Hant\FSharp.Core.resources.dll
-C:\Users\Ian Calvo\Desktop\Spoticry\AvanceCami\Proyecto F#\obj\Debug\net7.0\Proyecto F#.fsproj.AssemblyReference.cache
-C:\Users\Ian Calvo\Desktop\Spoticry\AvanceCami\Proyecto F#\obj\Debug\net7.0\Proyecto F#.AssemblyInfoInputs.cache
-C:\Users\Ian Calvo\Desktop\Spoticry\AvanceCami\Proyecto F#\obj\Debug\net7.0\Proyecto F#.AssemblyInfo.fs
-C:\Users\Ian Calvo\Desktop\Spoticry\AvanceCami\Proyecto F#\obj\Debug\net7.0\Proyecto F#.fsproj.CoreCompileInputs.cache
 C:\Users\Ian Calvo\Desktop\Spoticry\AvanceCami\Proyecto F#\obj\Debug\net7.0\Proyecto F#.fsproj.CopyComplete
 C:\Users\Ian Calvo\Desktop\Spoticry\AvanceCami\Proyecto F#\obj\Debug\net7.0\Proyecto F#.dll
 C:\Users\Ian Calvo\Desktop\Spoticry\AvanceCami\Proyecto F#\obj\Debug\net7.0\refint\Proyecto F#.dll
