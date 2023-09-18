@@ -331,8 +331,6 @@ func CompruebaExisteCancion(conn net.Conn) {
 
 func handleConnection(conn net.Conn) {
 	defer conn.Close()
-
-	//ImpresionListaCanciones(conn)
 	// Después de recibir la letra del cliente
 	EnvioListaCanciones(conn)
 	buffer := make([]byte, 1)

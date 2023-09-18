@@ -424,6 +424,9 @@ let main =
                             removeFromPlaylist ()
                         | "c" -> 
                             createPlaylist ()
+                        | "clear" ->
+                            Console.Clear()
+                        
                             // aqui va la funcion de filter
                             //let result = addToPlaylist2 "Querida"
                             //imprimirPlaylist playlist
