@@ -9,7 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="C:/Users/Ian Calvo/Desktop/Spoticry/AvanceCami/Proyecto F#/Proyecto F#.fsproj"/>  
+    <ProjectReference Include="C:/Users/Ian Calvo/Desktop/Spoticry/AvanceCami/Proyecto F#/Proyecto F#.fsproj" />  
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NAudio" Version="2.2.1" />
   </ItemGroup>
 
 </Project>

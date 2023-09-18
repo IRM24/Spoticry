@@ -16,6 +16,60 @@ let playlists = new Dictionary<string, List<string>>()
 let serverAddr = "127.0.0.1"
 let port = 8081
 
+let public addToPlaylist3 (playlistName: string, songName: string) =
+    // Verificar si el playlist ya existe
+    if playlists.ContainsKey(playlistName) then
+        // Agregar la canción al playlist existente
+        let songsInPlaylist = playlists.[playlistName]
+        songsInPlaylist.Add(songName)
+        sprintf "Canción '%s' agregada al playlist '%s'." songName playlistName
+    else
+        // Crear un nuevo playlist y agregar la canción
+        let newPlaylist = List([songName]) // Utiliza List para crear una lista mutable
+        playlists.Add(playlistName, newPlaylist)
+        sprintf "Playlist '%s' creada y canción '%s' agregada." playlistName songName
+
+let public imprimirPlaylist (playlists: Dictionary<string, List<string>>) =
+    printfn "Playlists:"
+    for kvp in playlists do
+        let playlistName, songs = kvp.Key, kvp.Value
+        printfn "Playlist: %s" playlistName
+        printfn "Canciones:"
+        for song in songs do
+            printfn "  %s" song
+
+let public createPlaylistP () =
+    Console.Write("Ingresa el nombre de la lista de reproduccion: ")
+    let playlistName = Console.ReadLine()
+    
+    // Verificar si la lista de reproducción ya existe
+    if playlists.ContainsKey(playlistName) then
+        Console.WriteLine("La lista de reproduccion ya existe")
+    else
+        // Crear una nueva lista de reproducción vacía
+        let newPlaylist = new List<string>()
+        playlists.Add(playlistName, newPlaylist)
+        Console.WriteLine("Lista de reproducción creada: " + playlistName)
+
+        let mutable continueAddingSongs = true
+        while continueAddingSongs do
+            Console.Write("Ingresa el nombre de la canción que deseas agregar (o 'stop' para dejar de agregar canciones): ")
+            let songName = Console.ReadLine()
+
+            if songName = "stop" then
+                continueAddingSongs <- false
+                
+            else
+                // Aquí puedes agregar la canción a la lista de reproducción usando addToPlaylist
+                let result = addToPlaylist3(playlistName, songName)
+                Console.WriteLine(result)
+    imprimirPlaylist(playlists)
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 let createPlaylist () =
     Console.Write("Ingresa el nombre de la lista de reproduccion: ")
     let playlistName = Console.ReadLine()
@@ -30,7 +84,7 @@ let createPlaylist () =
         Console.WriteLine("Lista de reproducción creada: " + playlistName)
 
 // Función para agregar una canción a una lista de reproducción
-let mutable playlist : Dictionary<string, List<string>> = Dictionary()
+let mutable public playlist : Dictionary<string, List<string>> = Dictionary()
 
 let addToPlaylist (stream: NetworkStream) =
     // Preguntar al usuario el nombre del playlist
@@ -75,10 +129,6 @@ let addToPlaylist2 (songName: string) : string=
     // Preguntar al usuario el nombre del playlist
     Console.Write("Ingresa el nombre del playlist en el que deseas agregar la canción: ")
     let playlistName = Console.ReadLine()
-
-    // Preguntar al usuario el nombre de la canción que desea agregar
-    //Console.Write("Ingresa el nombre de la canción que deseas agregar: ")
-    //let songName = Console.ReadLine()
 
     // Verificar si el playlist ya existe en el cliente
     if playlist.ContainsKey(playlistName) then
@@ -126,14 +176,7 @@ let removeFromPlaylist () =
         Console.WriteLine("El playlist no existe.")
 
 
-let imprimirPlaylist (playlists: Dictionary<string, List<string>>) =
-    printfn "Playlists:"
-    for kvp in playlists do
-        let playlistName, songs = kvp.Key, kvp.Value
-        printfn "Playlist: %s" playlistName
-        printfn "Canciones:"
-        for song in songs do
-            printfn "  %s" song
+
 
 
 let rec receiveSongList (songListBuilder: StringBuilder) (stream: NetworkStream) =
@@ -314,8 +357,6 @@ let playSong (stream: NetworkStream) = //version buena 1.0
     Console.WriteLine("Canción terminada.")
 
 
-
-
 let main =
     try
         use client = new TcpClient(serverAddr, port)
@@ -348,12 +389,7 @@ let main =
             stream.Write(letterBytes, 0, letterBytes.Length)
 
             match letter with
-            | "a" -> // El cliente quiere reproducir una canción
-                // Recibir los datos de la canción del servidor
-                //Console.WriteLine("a. Reproducir una cancion")
-                //Console.WriteLine("b. Reproducir un playlist")
-                //Console.Write("Selecciona una opción: ")
-
+            | "a" -> 
                 // Recibir una letra desde la consola
                 let letter3 = Console.ReadLine()
 
@@ -419,7 +455,7 @@ let main =
                     
                     match letter2 with
                         | "a" -> 
-                            createPlaylist ()
+                            createPlaylistP ()
                         | "b" -> 
                             removeFromPlaylist ()
                         | "c" -> 
@@ -427,19 +463,6 @@ let main =
                         | "clear" ->
                             Console.Clear()
                         
-                            // aqui va la funcion de filter
-                            //let result = addToPlaylist2 "Querida"
-                            //imprimirPlaylist playlist
-
-                            //let songListBuilder = new StringBuilder()
-                            //receiveSongList songListBuilder stream
-                            //let cancionesDisponiblesEnElServidor = songListBuilder.ToString()
-
-                            //Console.Write("Ingresa el nombre de la playlist: ")
-                            //let actualizarPlaylist = Console.ReadLine()
-
-                            //let filtrarPlaylist = actualizarPlaylist cancionesDisponiblesEnElServidor
-                            //imprimirPlaylist playlist
                         | _ ->  ()
             
             | "q" -> // El cliente quiere salir
