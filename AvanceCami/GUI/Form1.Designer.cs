@@ -16,17 +16,17 @@ namespace GUI
             this.btnAdelantar = new System.Windows.Forms.Button();
             this.btnRetrasar = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
-            this.btnLista = new System.Windows.Forms.Button();
-            this.btnACLista = new System.Windows.Forms.Button();
-            this.btnPlayPlaylist = new System.Windows.Forms.Button();
-            this.btnCLista = new System.Windows.Forms.Button();
-            this.txtServerList = new System.Windows.Forms.TextBox();
+            this.CPlaylist = new System.Windows.Forms.Button();
+            this.PP = new System.Windows.Forms.Button();
+            this.btnCrearPlaylist = new System.Windows.Forms.Button();
+            this.btnEliminarCancion = new System.Windows.Forms.Button();
+            this.btnActualizarPlaylist = new System.Windows.Forms.Button();
             
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.criterioEspanol = new System.Windows.Forms.ToolStripMenuItem();
+            this.criterioH = new System.Windows.Forms.ToolStripMenuItem();
+            this.criterio4 = new System.Windows.Forms.ToolStripMenuItem();
             this.SuspendLayout();
             // 
             // txtCancion
@@ -35,12 +35,6 @@ namespace GUI
             this.txtCancion.Name = "txtCancion";
             this.txtCancion.Size = new System.Drawing.Size(300, 20);
             this.txtCancion.TabIndex = 0; 
-
-            this.txtServerList.Location = new System.Drawing.Point(320, 150);
-            this.txtServerList.Name = "txtServerList";
-            this.txtServerList.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtServerList.Size = new System.Drawing.Size(300, 350);
-            this.txtServerList.TabIndex = 2;
 
             // 
             // botones
@@ -85,37 +79,48 @@ namespace GUI
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
 
-            this.btnLista.Location = new System.Drawing.Point(320, 520);
-            this.btnLista.Name = "OutLista";
-            this.btnLista.Size = new System.Drawing.Size(90, 40);
-            this.btnLista.TabIndex = 1;
-            this.btnLista.Text = "OutLista";
-            this.btnLista.UseVisualStyleBackColor = true;
-            this.btnLista.Click += new System.EventHandler(this.btnOutLista_Click);
+            this.CPlaylist.Location = new System.Drawing.Point(320, 120);
+            this.CPlaylist.Name = "Enter";
+            this.CPlaylist.Size = new System.Drawing.Size(90, 40);
+            this.CPlaylist.TabIndex = 1;
+            this.CPlaylist.Text = "Enter";
+            this.CPlaylist.UseVisualStyleBackColor = true;
+            this.CPlaylist.Click += new System.EventHandler(this.CPlaylist_Click);
 
-            this.btnCLista.Location = new System.Drawing.Point(420, 520);
-            this.btnCLista.Name = "CrearLista";
-            this.btnCLista.Size = new System.Drawing.Size(90, 40);
-            this.btnCLista.TabIndex = 1;
-            this.btnCLista.Text = "Crear Lista";
-            this.btnCLista.UseVisualStyleBackColor = true;
-            this.btnCLista.Click += new System.EventHandler(this.btnCLista_Click);
+            this.PP.Location = new System.Drawing.Point(420, 120);
+            this.PP.Name = "PP";
+            this.PP.Size = new System.Drawing.Size(90, 40);
+            this.PP.TabIndex = 1;
+            this.PP.Text = "Pause/Play";
+            this.PP.UseVisualStyleBackColor = true;
+            this.PP.Click += new System.EventHandler(this.PP_Click);
 
-            this.btnACLista.Location = new System.Drawing.Point(520, 520);
-            this.btnACLista.Name = "AddCancion";
-            this.btnACLista.Size = new System.Drawing.Size(90, 40);
-            this.btnACLista.TabIndex = 1;
-            this.btnACLista.Text = "Add Cancion";
-            this.btnACLista.UseVisualStyleBackColor = true;
-            this.btnACLista.Click += new System.EventHandler(this.btnACLista_Click);
+            this.btnCrearPlaylist.Location = new System.Drawing.Point(320, 170);
+            this.btnCrearPlaylist.Name = "CrearPlaylist";
+            this.btnCrearPlaylist.Size = new System.Drawing.Size(90, 40);
+            this.btnCrearPlaylist.TabIndex = 1;
+            this.btnCrearPlaylist.Text = "Crear Playlist";
+            this.btnCrearPlaylist.UseVisualStyleBackColor = true;
+            this.btnCrearPlaylist.Click += new System.EventHandler(this.btnCrearPlaylist_Click);
 
-            this.btnPlayPlaylist.Location = new System.Drawing.Point(620, 520);
-            this.btnPlayPlaylist.Name = "PlayPlaylist";
-            this.btnPlayPlaylist.Size = new System.Drawing.Size(90, 40);
-            this.btnPlayPlaylist.TabIndex = 1;
-            this.btnPlayPlaylist.Text = "PlayPlaylist";
-            this.btnPlayPlaylist.UseVisualStyleBackColor = true;
-            this.btnPlayPlaylist.Click += new System.EventHandler(this.btnPlayPlaylist_Click);
+            // Botón "Eliminar Canción de Playlist"
+            this.btnEliminarCancion.Location = new System.Drawing.Point(420, 170);
+            this.btnEliminarCancion.Name = "EliminarCancion";
+            this.btnEliminarCancion.Size = new System.Drawing.Size(90, 40);
+            this.btnEliminarCancion.TabIndex = 1;
+            this.btnEliminarCancion.Text = "Eliminar Canción de Playlist";
+            this.btnEliminarCancion.UseVisualStyleBackColor = true;
+            this.btnEliminarCancion.Click += new System.EventHandler(this.btnEliminarCancion_Click);
+
+            // Botón "Actualizar Playlist"
+            this.btnActualizarPlaylist.Location = new System.Drawing.Point(520, 170);
+            this.btnActualizarPlaylist.Name = "ActualizarPlaylist";
+            this.btnActualizarPlaylist.Size = new System.Drawing.Size(90, 40);
+            this.btnActualizarPlaylist.TabIndex = 1;
+            this.btnActualizarPlaylist.Text = "Actualizar Playlist";
+            this.btnActualizarPlaylist.UseVisualStyleBackColor = true;
+            this.btnActualizarPlaylist.Click += new System.EventHandler(this.btnActualizarPlaylist_Click);
+
             // 
             // txtServerResponse
             // 
@@ -126,10 +131,6 @@ namespace GUI
             this.txtServerResponse.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtServerResponse.Size = new System.Drawing.Size(300, 700);
             this.txtServerResponse.TabIndex = 2;
-            // 
-            // Form1
-            // 
-
             //
             //Menu
             //
@@ -144,34 +145,34 @@ namespace GUI
 
             // Configurar las opciones del menú desplegable
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                this.newToolStripMenuItem,
-                this.openToolStripMenuItem,
-                this.saveToolStripMenuItem
+                this.criterioEspanol,
+                this.criterioH,
+                this.criterio4
             });
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "Criterios";
             this.fileToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(255, 255, 255);
-            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
+            //this.criterioEspanol.Click += new System.EventHandler(this.criterioEspanol_Click);
 
 
-            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.newToolStripMenuItem.Text = "Canciones Español";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
+            this.criterioEspanol.Name = "criterioEspanol";
+            this.criterioEspanol.Size = new System.Drawing.Size(152, 22);
+            this.criterioEspanol.Text = "Canciones Español";
+            this.criterioEspanol.Click += new System.EventHandler(this.criterioEspanol_Click);
 
             
             // Opción Open
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.openToolStripMenuItem.Text = "Empieza con H";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            this.criterio4.Name = "4minutos";
+            this.criterio4.Size = new System.Drawing.Size(152, 22);
+            this.criterio4.Text = "Menores a 4 minutos";
+            this.criterio4.Click += new System.EventHandler(this.criterio4_Click);
             
             // Opción Save
-            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.saveToolStripMenuItem.Text = "Menores a 4 minutos";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            this.criterioH.Name = "EmpiezaH";
+            this.criterioH.Size = new System.Drawing.Size(152, 22);
+            this.criterioH.Text = "Empieza con H";
+            this.criterioH.Click += new System.EventHandler(this.criterioH_Click);
 
             //this.AutoScaleDimensions = new System.Drawing.SizeF(3F, 5F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -182,18 +183,17 @@ namespace GUI
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnAdelantar);
             this.Controls.Add(this.btnRetrasar);
-            this.Controls.Add(this.btnLista);
-            this.Controls.Add(this.btnCLista);
-            this.Controls.Add(this.btnACLista);
-            this.Controls.Add(this.btnPlayPlaylist);
             this.Controls.Add(this.txtCancion);
-            this.Controls.Add(this.txtServerList);
+            this.Controls.Add(this.CPlaylist);
+            this.Controls.Add(this.PP);
+            this.Controls.Add(this.btnCrearPlaylist);
+            this.Controls.Add(this.btnEliminarCancion);
+            this.Controls.Add(this.btnActualizarPlaylist);
             this.Name = "Form1";
             this.Text = "Server Client App";
             this.BackColor = System.Drawing.Color.FromArgb(38,55, 50); // Rojo (255, 0, 0)
             this.Controls.Add(this.menuStrip1); // Agregar el menú desplegable al formulario
             this.menuStrip1.BackColor = System.Drawing.Color.FromArgb(107, 179, 156);
-            //this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -201,23 +201,24 @@ namespace GUI
 
         // Debes agregar estos campos privados para representar los componentes
         private System.Windows.Forms.TextBox txtCancion;
-        private System.Windows.Forms.TextBox txtServerList;
         private System.Windows.Forms.Button btnReproducir;
         private System.Windows.Forms.Button btnParar;
         private System.Windows.Forms.TextBox txtServerResponse;
         private System.Windows.Forms.Button btnAdelantar;
         private System.Windows.Forms.Button btnRetrasar;
         private System.Windows.Forms.Button btnClear;
-        private System.Windows.Forms.Button btnLista;
-        private System.Windows.Forms.Button btnCLista;
-        private System.Windows.Forms.Button btnACLista;
-        private System.Windows.Forms.Button btnPlayPlaylist;
+
         
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem criterioEspanol;
+        private System.Windows.Forms.ToolStripMenuItem criterioH;
+        private System.Windows.Forms.ToolStripMenuItem criterio4;
+        private System.Windows.Forms.Button CPlaylist;
+        private System.Windows.Forms.Button PP;
+        private System.Windows.Forms.Button btnCrearPlaylist;
+        private System.Windows.Forms.Button btnEliminarCancion;
+        private System.Windows.Forms.Button btnActualizarPlaylist;
 
     }
 }

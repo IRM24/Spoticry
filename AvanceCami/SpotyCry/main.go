@@ -3,8 +3,6 @@
 package main
 
 import (
-	//"encoding/json"
-	"bytes"
 	"os"
 	"strings"
 
@@ -32,6 +30,9 @@ func (l *listaCanciones) agregarCancion(nombre string, artista string, genero st
 	if l.buscarCancionIndice(nombre) == -1 {
 		*l = append(*l, cancion{nombre: nombre, artista: artista, genero: genero, direcion: direccion})
 	}
+	//if l.buscarCancionIndice(nombre) == 1 { // revisar esa validacion
+	//	fmt.Println("Ya existe esta canción")
+	//}
 }
 
 func (l *listaCanciones) EliminarCancion(nombre string) {
@@ -59,6 +60,10 @@ func llenarDatos() {
 	lCanciones.agregarCancion("How Deep Is Your Love", "Bee Gees", "Soft Rock", direccionIan+"HowDeepIsYourLove.mp3")
 	lCanciones.agregarCancion("Que Me Des Tu Carinno", "Juan Luis Guerra", "Bachata", direccionIan+"QueMeDesTuCarinno.mp3")
 	lCanciones.agregarCancion("Human Nature", " Michael Jackson", "Pop", direccionIan+"HumanNature.mp3")
+	//lCanciones.agregarCancion("Heat Above", " Michael Jackson", "Pop", direccionIan+"HeatAbove.mp3")
+	//lCanciones.agregarCancion("Rock With You", " Michael Jackson", "Pop", direccionIan+"RockWithYou.mp3")
+	//lCanciones.agregarCancion("When we were young", " Michael Jackson", "Pop", direccionIan+"WhenWeWereYoung.mp3")
+
 }
 
 func (l *listaCanciones) buscarCancion(nombre string) (*cancion, int) { //el retorno es el índice del producto encontrado y -1 si no existe
@@ -201,22 +206,12 @@ func EliminarCancionConsola() {
 	lCanciones.EliminarCancion(nombre)
 }
 
-func EnvioListaCanciones(conn net.Conn) {
-	var buffer bytes.Buffer
-	buffer.WriteString("Lista de Canciones:\n")
+func ImpresionListaCanciones() {
+	fmt.Println("Lista de Canciones:")
 	for _, cancion := range lCanciones {
-		buffer.WriteString(fmt.Sprintf("Nombre: %s\nArtista: %s\nGénero: %s\nDirección: %s\n\n \n",
-			cancion.nombre, cancion.artista, cancion.genero, cancion.direcion))
+		fmt.Printf("Nombre: %s\nArtista: %s\nGénero: %s\nDirección: %s\n\n",
+			cancion.nombre, cancion.artista, cancion.genero, cancion.direcion)
 	}
-
-	// Enviar la lista de canciones al cliente
-	_, err := conn.Write(buffer.Bytes())
-	if err != nil {
-		fmt.Println("Error al enviar la lista de canciones al cliente:", err)
-		return
-	}
-
-	fmt.Println("Lista de canciones enviada al cliente.")
 }
 
 func sendSongListToClient(conn net.Conn) {
@@ -225,7 +220,6 @@ func sendSongListToClient(conn net.Conn) {
 	// Itera sobre la lista de canciones y envía los detalles de cada canción al cliente
 	for _, cancion := range lCanciones {
 		songInfo := fmt.Sprintf(cancion.nombre)
-		fmt.Printf("")
 		_, err := conn.Write([]byte(songInfo))
 		if err != nil {
 			fmt.Println("Error al enviar datos al cliente:", err)
@@ -246,7 +240,7 @@ func EnviarCancionesDuracion(conn net.Conn) {
 	cancionesFiltradas := lCanciones.DuracionTodasCanciones()
 	fmt.Println("Lista de Canciones con Duración < 4.0 minutos:")
 	for _, cancion := range cancionesFiltradas {
-		songInfo := fmt.Sprintf("Nombre: %s\nArtista: %s\nGénero: %s\n\n",
+		songInfo := fmt.Sprintf("Nombre: %s\nArtista: %s\nGénero: %s\n\n \n",
 			cancion.nombre, cancion.artista, cancion.genero)
 		_, err := conn.Write([]byte(songInfo))
 		if err != nil {
@@ -266,7 +260,7 @@ func EnviarCancionesH(conn net.Conn) {
 	cancionesFiltradas2 := lCanciones.CancionesEmpiezaConH()
 	fmt.Println("Lista de Canciones con todas las canciones empiezan con h:")
 	for _, cancion := range cancionesFiltradas2 {
-		songInfo := fmt.Sprintf("Nombre: %s\nArtista: %s\nGénero: %s\n\n",
+		songInfo := fmt.Sprintf("Nombre: %s\nArtista: %s\nGénero: %s\n\n \n",
 			cancion.nombre, cancion.artista, cancion.genero)
 		_, err := conn.Write([]byte(songInfo))
 		if err != nil {
@@ -286,7 +280,7 @@ func EnviarCancionesEspannol(conn net.Conn) {
 	cancionesFiltradas2 := lCanciones.CancionesEspannol()
 	fmt.Println("Lista de Canciones con todas las canciones son en Espannol:")
 	for _, cancion := range cancionesFiltradas2 {
-		songInfo := fmt.Sprintf("Nombre: %s\nArtista: %s\nGénero: %s\n\n",
+		songInfo := fmt.Sprintf("Nombre: %s\nArtista: %s\nGénero: %s\n\n \n",
 			cancion.nombre, cancion.artista, cancion.genero)
 		_, err := conn.Write([]byte(songInfo))
 		if err != nil {
@@ -331,8 +325,8 @@ func CompruebaExisteCancion(conn net.Conn) {
 
 func handleConnection(conn net.Conn) {
 	defer conn.Close()
+
 	// Después de recibir la letra del cliente
-	EnvioListaCanciones(conn)
 	buffer := make([]byte, 1)
 	n, err := conn.Read(buffer)
 	if err != nil {
@@ -378,7 +372,6 @@ func handleConnection(conn net.Conn) {
 
 			fmt.Println("Canción enviada:", songName)
 		}
-
 		if letra3 == "b" {
 			// Recibir el nombre de la canción del cliente
 			buffer = make([]byte, 1024)
@@ -389,25 +382,21 @@ func handleConnection(conn net.Conn) {
 			}
 			songName := string(buffer[:n])
 
-			if direccion := lCanciones.buscarDireccionCancion(songName); direccion != "" {
-				// Leer los datos de la canción desde el archivo
-				songData, err := os.ReadFile(direccion)
-				if err != nil {
-					fmt.Println("Error al leer el archivo de la canción:", err)
-					return
-				}
-
-				// Enviar los datos de la canción al cliente como bytes
-				_, err = conn.Write(songData)
-				if err != nil {
-					fmt.Println("Error al enviar los datos al cliente:", err)
-					return
-				}
-
-				fmt.Println("Canción enviada:", songName)
-			} else {
-				fmt.Println("No existe esa cancion en la lista de reproduccion")
+			filePath := lCanciones.buscarDireccionCancion(songName)
+			songData, err := os.ReadFile(filePath)
+			if err != nil {
+				fmt.Println("Error al leer el archivo de la canción:", err)
+				return
 			}
+
+			// Enviar los datos de la canción al cliente como bytes
+			_, err = conn.Write(songData)
+			if err != nil {
+				fmt.Println("Error al enviar los datos al cliente:", err)
+				return
+			}
+
+			fmt.Println("Canción enviada:", songName)
 		}
 
 	case "b":
@@ -468,7 +457,7 @@ func handleConnectionCriterios(conn net.Conn) {
 
 func main() {
 	llenarDatos()
-
+	ImpresionListaCanciones()
 	//AgregarCancionConsola()
 	//EliminarCancionConsola()
 	port := "8081"
@@ -486,6 +475,7 @@ func main() {
 			fmt.Println("Error al aceptar la conexión:", err)
 			continue
 		}
+
 		go handleConnection(conn)
 	}
 }

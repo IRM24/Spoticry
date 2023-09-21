@@ -115,14 +115,8 @@ namespace GUI
             }
         }
 
-
         private void btnRetrasar_Click(object sender, EventArgs e)
         {
-            // Obtener el mensaje del cuadro de texto
-            //string message = txtCancion.Text;
-
-
-            // Enviar el mensaje al cliente F#
             if (fSharpClientProcess != null && !fSharpClientProcess.HasExited)
             {
                 fSharpClientProcess.StandardInput.WriteLine("r");
@@ -134,88 +128,23 @@ namespace GUI
             }
         }
 
-        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        private void criterioEspanol_Click(object sender, EventArgs e)
         {   
-            String folderPath = "C:/Users/Ian Calvo/Desktop/Musica";
-            if (Directory.Exists(folderPath))
-            {
-        // Obtener los nombres de todos los archivos .mp3 en la carpeta
-        string[] mp3Files = Directory.GetFiles(folderPath, "*.mp3");
-
-        foreach (string mp3File in mp3Files)
-        {
-            // Obtener el nombre del archivo sin la extensión
-            string fileName = Path.GetFileNameWithoutExtension(mp3File);
-
-            // Aquí puedes agregar tus restricciones. Por ejemplo, podrías verificar si el nombre del archivo contiene una cierta palabra:
-            if (fileName.Contains("La")||fileName.Contains("Te")||fileName.Contains("Que")||fileName.Contains("Me")||fileName.Contains("Si")||fileName.Contains("Ya")||fileName.Contains("Querida"))
-            {
-                txtServerResponse.AppendText(fileName + Environment.NewLine);
-            }
-        }
-    }
-    else
-    {
-        txtServerResponse.AppendText("La carpeta no existe." + Environment.NewLine);
-    } 
+            fSharpClientProcess.StandardInput.WriteLine("b");
+            fSharpClientProcess.StandardInput.WriteLine("a");
         }
 
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        private void criterio4_Click(object sender, EventArgs e)
         {
-            String folderPath = "C:/Users/Ian Calvo/Desktop/Musica";
-            if (Directory.Exists(folderPath))
-    {
-        // Obtener los nombres de todos los archivos .mp3 en la carpeta
-        string[] mp3Files = Directory.GetFiles(folderPath, "*.mp3");
-
-        foreach (string mp3File in mp3Files)
-        {
-            // Obtener el nombre del archivo sin la extensión
-            string fileName = Path.GetFileNameWithoutExtension(mp3File);
-
-            // Aquí puedes agregar tus restricciones. En este caso, verificamos si el nombre del archivo comienza con "H":
-            if (fileName.StartsWith("H"))
-            {
-                txtServerResponse.AppendText(fileName + Environment.NewLine);
-            }
-        }
-    }
-    else
-    {
-        txtServerResponse.AppendText("La carpeta no existe." + Environment.NewLine);
-    } 
+            fSharpClientProcess.StandardInput.WriteLine("b");
+            fSharpClientProcess.StandardInput.WriteLine("b");
         }
 
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        private void criterioH_Click(object sender, EventArgs e)
         {
-            String folderPath = "C:/Users/Ian Calvo/Desktop/Musica";
-        if (Directory.Exists(folderPath))
-        {
-        // Obtener los nombres de todos los archivos .mp3 en la carpeta
-        string[] mp3Files = Directory.GetFiles(folderPath, "*.mp3");
+            fSharpClientProcess.StandardInput.WriteLine("b");
+            fSharpClientProcess.StandardInput.WriteLine("c");
 
-        foreach (string mp3File in mp3Files)
-        {
-            // Obtener el nombre del archivo sin la extensión
-            string fileName = Path.GetFileNameWithoutExtension(mp3File);
-
-            // Obtener la duración del archivo .mp3
-            using (Mp3FileReader reader = new Mp3FileReader(mp3File))
-            {
-                TimeSpan duration = reader.TotalTime;
-
-                // Verificar si la duración es menor a 4 minutos
-                if (duration.TotalMinutes < 4)
-                {
-                    txtServerResponse.AppendText(fileName + Environment.NewLine);
-                }
-            }
-        }
-    }
-    else
-    {
-        txtServerResponse.AppendText("La carpeta no existe." + Environment.NewLine);
-    } 
         }
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -231,56 +160,36 @@ namespace GUI
                 MessageBox.Show("El cliente F# no está en ejecución.");
             }
         }
-        private void btnOutLista_Click(object sender, EventArgs e)
-        {
-               if (fSharpClientProcess != null && !fSharpClientProcess.HasExited)
-            {
-                fSharpClientProcess.StandardInput.WriteLine("stop");
-
-            }
-            else
-            {
-                MessageBox.Show("El cliente F# no está en ejecución.");
-            }
-        }
-
-        private void btnCLista_Click(object sender, EventArgs e)
-        {
-            string message = txtServerList.Text;
-               if (fSharpClientProcess != null && !fSharpClientProcess.HasExited)
-            {
-                fSharpClientProcess.StandardInput.WriteLine("c");
-                fSharpClientProcess.StandardInput.WriteLine("a");
-                fSharpClientProcess.StandardInput.WriteLine(message);
-            }
-            else
-            {
-                MessageBox.Show("El cliente F# no está en ejecución.");
-            }
-        }
-        private void btnACLista_Click(object sender, EventArgs e)
-        {
-            string message = txtServerList.Text;
-               if (fSharpClientProcess != null && !fSharpClientProcess.HasExited)
-            {
-                fSharpClientProcess.StandardInput.WriteLine(message);
-            }
-            else
-            {
-                MessageBox.Show("El cliente F# no está en ejecución.");
-            }
-        }
-
-        private void btnPlayPlaylist_Click(object sender, EventArgs e)
-        {
-            //fSharpClientProcess.StandardInput.WriteLine("a");
-            //fSharpClientProcess.StandardInput.WriteLine("a");
-            //cuando le doy click a este boton que llame a una funcion que imprima solo los nombres de las canciones en cierta playlist, luego capturar esa salida y con eso
-            //verificar nombre por nombre que este (eso iria a buscarlo en la ruta/maybe no implementar) y uno por uno a a reproducir, pasa que no se como iterar cancion por 
-            //cancion...
-
-        }
         
+        private void CPlaylist_Click(object sender, EventArgs e){
+            string message = txtCancion.Text;
+            if (fSharpClientProcess != null && !fSharpClientProcess.HasExited)
+            {
+                fSharpClientProcess.StandardInput.WriteLine(message);
+                txtCancion.Clear();
+            }
+            else
+            {
+                MessageBox.Show("El cliente F# no está en ejecución.");
+            }
+        }
+
+        private void PP_Click(object sender, EventArgs e){
+            fSharpClientProcess.StandardInput.WriteLine("p");
+        }
+
+        private void btnCrearPlaylist_Click(object sender, EventArgs e){
+            fSharpClientProcess.StandardInput.WriteLine("c");
+            fSharpClientProcess.StandardInput.WriteLine("a");
+        }
+        private void btnEliminarCancion_Click(object sender, EventArgs e){
+            fSharpClientProcess.StandardInput.WriteLine("c");
+            fSharpClientProcess.StandardInput.WriteLine("b");
+        }
+        private void btnActualizarPlaylist_Click(object sender, EventArgs e){
+            fSharpClientProcess.StandardInput.WriteLine("c");
+            fSharpClientProcess.StandardInput.WriteLine("c");
+        }   
 
     }
 }
