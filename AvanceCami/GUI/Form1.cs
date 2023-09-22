@@ -61,11 +61,9 @@ namespace GUI
 
         private void btnReproducir_Click(object sender, EventArgs e)
         {
-            // Obtener el mensaje del cuadro de texto
             string message = txtCancion.Text;
 
 
-            // Enviar el mensaje al cliente F#
             if (fSharpClientProcess != null && !fSharpClientProcess.HasExited)
             {
                 fSharpClientProcess.StandardInput.WriteLine("a");
@@ -81,11 +79,6 @@ namespace GUI
 
          private void btnParar_Click(object sender, EventArgs e)
         {
-            // Obtener el mensaje del cuadro de texto
-            //string message = txtCancion.Text;
-
-
-            // Enviar el mensaje al cliente F#
             if (fSharpClientProcess != null && !fSharpClientProcess.HasExited)
             {
                 fSharpClientProcess.StandardInput.WriteLine("q");
@@ -99,11 +92,6 @@ namespace GUI
 
         private void btnAdelantar_Click(object sender, EventArgs e)
         {
-            // Obtener el mensaje del cuadro de texto
-            //string message = txtCancion.Text;
-
-
-            // Enviar el mensaje al cliente F#
             if (fSharpClientProcess != null && !fSharpClientProcess.HasExited)
             {
                 fSharpClientProcess.StandardInput.WriteLine("f");
@@ -153,7 +141,7 @@ namespace GUI
             if (fSharpClientProcess != null && !fSharpClientProcess.HasExited)
             {
                 txtServerResponse.Text = string.Empty;
-                fSharpClientProcess.StandardInput.WriteLine("clear");
+                //fSharpClientProcess.StandardInput.WriteLine("clear");
             }
             else
             {
@@ -162,11 +150,11 @@ namespace GUI
         }
         
         private void CPlaylist_Click(object sender, EventArgs e){
-            string message = txtCancion.Text;
+            string message = txtCancionP.Text;
             if (fSharpClientProcess != null && !fSharpClientProcess.HasExited)
             {
                 fSharpClientProcess.StandardInput.WriteLine(message);
-                txtCancion.Clear();
+                txtCancionP.Clear();
             }
             else
             {
@@ -179,16 +167,25 @@ namespace GUI
         }
 
         private void btnCrearPlaylist_Click(object sender, EventArgs e){
+            
+            txtServerResponse.Text = "1.Ingresar el nombre de la playlist que desea crear\n2.Ingrese la cancion deseada\n                               \n3.Confirme el nombre de la playlist                              \nLas acciones se confirman con 'Enter'";
             fSharpClientProcess.StandardInput.WriteLine("c");
             fSharpClientProcess.StandardInput.WriteLine("a");
         }
         private void btnEliminarCancion_Click(object sender, EventArgs e){
+            txtServerResponse.Text = "1.Ingresar el nombre de la playlist que desea eliminar una cancion\n                                             2.Ingrese la cancion desea eliminar\n                              Las acciones se confirman con 'Enter' ";
             fSharpClientProcess.StandardInput.WriteLine("c");
             fSharpClientProcess.StandardInput.WriteLine("b");
         }
         private void btnActualizarPlaylist_Click(object sender, EventArgs e){
             fSharpClientProcess.StandardInput.WriteLine("c");
             fSharpClientProcess.StandardInput.WriteLine("c");
+        }
+        private void btnLista_Click(object sender, EventArgs e){
+            fSharpClientProcess.StandardInput.WriteLine("l");
+        }
+        private void btnPLista_Click(object sender, EventArgs e){
+            fSharpClientProcess.StandardInput.WriteLine("y");
         }   
 
     }

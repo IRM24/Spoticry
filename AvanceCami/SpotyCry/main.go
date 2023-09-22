@@ -3,6 +3,7 @@
 package main
 
 import (
+	"bytes"
 	"os"
 	"strings"
 
@@ -64,6 +65,22 @@ func llenarDatos() {
 	//lCanciones.agregarCancion("Rock With You", " Michael Jackson", "Pop", direccionIan+"RockWithYou.mp3")
 	//lCanciones.agregarCancion("When we were young", " Michael Jackson", "Pop", direccionIan+"WhenWeWereYoung.mp3")
 
+}
+
+func EnvioListaCanciones(conn net.Conn) {
+	var buffer bytes.Buffer
+	buffer.WriteString("Lista de Canciones:\n")
+	for _, cancion := range lCanciones {
+		buffer.WriteString(fmt.Sprintf("Nombre: %s\nArtista: %s\nGénero: %s\nDirección: %s\n\n \n",
+			cancion.nombre, cancion.artista, cancion.genero, cancion.direcion))
+	}
+	// Enviar la lista de canciones al cliente
+	_, err := conn.Write(buffer.Bytes())
+	if err != nil {
+		fmt.Println("Error al enviar la lista de canciones al cliente:", err)
+		return
+	}
+	fmt.Println("Lista de canciones enviada al cliente.")
 }
 
 func (l *listaCanciones) buscarCancion(nombre string) (*cancion, int) { //el retorno es el índice del producto encontrado y -1 si no existe
@@ -214,24 +231,44 @@ func ImpresionListaCanciones() {
 	}
 }
 
-func sendSongListToClient(conn net.Conn) {
-	fmt.Println("Enviando lista de canciones al cliente...")
+/*
+	func sendSongListToClient(conn net.Conn) {
+		fmt.Println("Enviando lista de canciones al cliente...")
 
-	// Itera sobre la lista de canciones y envía los detalles de cada canción al cliente
-	for _, cancion := range lCanciones {
-		songInfo := fmt.Sprintf(cancion.nombre)
-		_, err := conn.Write([]byte(songInfo))
+		// Itera sobre la lista de canciones y envía los detalles de cada canción al cliente
+		for _, cancion := range lCanciones {
+			songInfo := fmt.Sprintf(cancion.nombre)
+			_, err := conn.Write([]byte(songInfo))
+			if err != nil {
+				fmt.Println("Error al enviar datos al cliente:", err)
+				return
+			}
+		}
+
+		// Indica al cliente que la lista de canciones ha sido enviada
+		_, err := conn.Write([]byte("Lista de canciones enviada."))
 		if err != nil {
 			fmt.Println("Error al enviar datos al cliente:", err)
 			return
 		}
 	}
+*/
+func sendSongListToClient(conn net.Conn) {
+	fmt.Println("Enviando lista de canciones al cliente...")
 
-	// Indica al cliente que la lista de canciones ha sido enviada
-	_, err := conn.Write([]byte("Lista de canciones enviada."))
-	if err != nil {
-		fmt.Println("Error al enviar datos al cliente:", err)
-		return
+	// Itera sobre la lista de canciones y envía los detalles de cada canción al cliente
+	for _, cancion := range lCanciones {
+		// Formatea los detalles de la canción en una cadena con un separador, por ejemplo, una coma
+		songInfo := fmt.Sprintf("%s,%s", cancion.nombre, cancion.artista)
+
+		// Agrega un carácter de nueva línea al final de cada canción para separarlas
+		songInfo += "\n \n"
+
+		_, err := conn.Write([]byte(songInfo))
+		if err != nil {
+			fmt.Println("Error al enviar datos al cliente:", err)
+			return
+		}
 	}
 }
 
@@ -417,12 +454,14 @@ func handleConnection(conn net.Conn) {
 			fmt.Println("Cliente está borrando una cancion.")
 		}
 		if opcion == "c" {
-			EliminarCancionConsola()
+			//EliminarCancionConsola()
 			fmt.Println("Cliente está actualizando una playlist.")
-			sendSongListToClient(conn)
+			//sendSongListToClient(conn)
+			EnvioListaCanciones(conn)
 		}
 		//CompruebaExisteCancion(conn)
-
+	case "l":
+		sendSongListToClient(conn)
 	case "q":
 		// El cliente quiere salir del menú
 		fmt.Println("Cliente ha salido del menú.")
