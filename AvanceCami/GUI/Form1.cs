@@ -118,18 +118,21 @@ namespace GUI
 
         private void criterioEspanol_Click(object sender, EventArgs e)
         {   
+            MessageBox.Show("1.Seleccione una cancion perteneciente al criterio seleccionado previamente (En la seccion 'Playlists')\n \n2.Seleccione la playlist a la que desea añadir la cancion\n \nLas acciones se confirman con 'Enter'");
             fSharpClientProcess.StandardInput.WriteLine("b");
             fSharpClientProcess.StandardInput.WriteLine("a");
         }
 
         private void criterio4_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("1.Seleccione una cancion perteneciente al criterio seleccionado previamente (En la seccion 'Playlists')\n \n2.Seleccione la playlist a la que desea añadir la cancion\n \nLas acciones se confirman con 'Enter'");
             fSharpClientProcess.StandardInput.WriteLine("b");
             fSharpClientProcess.StandardInput.WriteLine("b");
         }
 
         private void criterioH_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("1.Seleccione una cancion perteneciente al criterio seleccionado previamente (En la seccion 'Playlists')\n \n2.Seleccione la playlist a la que desea añadir la cancion\n \nLas acciones se confirman con 'Enter'");
             fSharpClientProcess.StandardInput.WriteLine("b");
             fSharpClientProcess.StandardInput.WriteLine("c");
 
@@ -168,16 +171,19 @@ namespace GUI
 
         private void btnCrearPlaylist_Click(object sender, EventArgs e){
             
-            txtServerResponse.Text = "1.Ingresar el nombre de la playlist que desea crear\n2.Ingrese la cancion deseada\n                               \n3.Confirme el nombre de la playlist                              \nLas acciones se confirman con 'Enter'";
+            //txtServerResponse.Text = "1.Ingresar el nombre de la playlist que desea crear\n2.Ingrese la cancion deseada\n                               \n3.Confirme el nombre de la playlist                              \nLas acciones se confirman con 'Enter'";
+            MessageBox.Show("1.Ingresar el nombre de la playlist que desea crear (En la seccion 'Playlists')\n \n2.Ingrese la cancion deseada\n \n3.Confirme el nombre de la playlist\n \nLas acciones se confirman con 'Enter'");
             fSharpClientProcess.StandardInput.WriteLine("c");
             fSharpClientProcess.StandardInput.WriteLine("a");
         }
         private void btnEliminarCancion_Click(object sender, EventArgs e){
-            txtServerResponse.Text = "1.Ingresar el nombre de la playlist que desea eliminar una cancion\n                                             2.Ingrese la cancion desea eliminar\n                              Las acciones se confirman con 'Enter' ";
+            //txtServerResponse.Text = "1.Ingresar el nombre de la playlist que desea eliminar una cancion\n                                             2.Ingrese la cancion desea eliminar\n                              Las acciones se confirman con 'Enter' ";
+            MessageBox.Show("1.Ingresar el nombre de la playlist que desea Eliminar una cancion (En la seccion 'Playlists')\n \n2.Ingrese la cancion deseada a eliminar\n \nLas acciones se confirman con 'Enter'");
             fSharpClientProcess.StandardInput.WriteLine("c");
             fSharpClientProcess.StandardInput.WriteLine("b");
         }
         private void btnActualizarPlaylist_Click(object sender, EventArgs e){
+            MessageBox.Show("1.Ingresar el nombre de la playlist que Actualizar (En la seccion 'Playlists')\n \nLas acciones se confirman con 'Enter'");
             fSharpClientProcess.StandardInput.WriteLine("c");
             fSharpClientProcess.StandardInput.WriteLine("c");
         }

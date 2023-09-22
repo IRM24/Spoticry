@@ -24,6 +24,8 @@ namespace GUI
             this.btnActualizarPlaylist = new System.Windows.Forms.Button();
             this.btnLista = new System.Windows.Forms.Button();
             this.btnPLista = new System.Windows.Forms.Button();
+
+            
             
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,6 +69,8 @@ namespace GUI
             this.btnReproducir.Text = "Play";
             this.btnReproducir.UseVisualStyleBackColor = true;
             this.btnReproducir.Font = new Font("Arial", 12,FontStyle.Bold);
+            this.btnReproducir.BackColor = System.Drawing.Color.FromArgb(29, 185, 84);
+            this.btnReproducir.ForeColor = System.Drawing.Color.FromArgb(33,33,33);
             this.btnReproducir.Click += new System.EventHandler(this.btnReproducir_Click);
 
             this.btnParar.Location = new System.Drawing.Point(420, 135);
@@ -76,6 +80,7 @@ namespace GUI
             this.btnParar.Text = "Stop";
             this.btnParar.UseVisualStyleBackColor = true;
             this.btnParar.Font = new Font("Arial", 12,FontStyle.Bold);
+            this.btnParar.ForeColor = System.Drawing.Color.FromArgb(33,33,33);
             this.btnParar.Click += new System.EventHandler(this.btnParar_Click);
 
             this.btnAdelantar.Location = new System.Drawing.Point(620, 135);
@@ -85,6 +90,7 @@ namespace GUI
             this.btnAdelantar.Text = "I>";
             this.btnAdelantar.UseVisualStyleBackColor = true;
             this.btnAdelantar.Font = new Font("Arial", 12,FontStyle.Bold);
+            this.btnAdelantar.ForeColor = System.Drawing.Color.FromArgb(33,33,33);
             this.btnAdelantar.Click += new System.EventHandler(this.btnAdelantar_Click);
 
             this.btnRetrasar.Location = new System.Drawing.Point(520, 135);
@@ -94,7 +100,7 @@ namespace GUI
             this.btnRetrasar.Text = "<I";
             this.btnRetrasar.Font = new Font("Arial", 12,FontStyle.Bold);
             this.btnRetrasar.BackColor = System.Drawing.Color.White;
-            this.btnRetrasar.ForeColor = System.Drawing.Color.Black;
+            this.btnRetrasar.ForeColor = System.Drawing.Color.FromArgb(33,33,33);
             this.btnRetrasar.Click += new System.EventHandler(this.btnRetrasar_Click);
 
             this.btnClear.Location = new System.Drawing.Point(320, 650);
@@ -104,6 +110,8 @@ namespace GUI
             this.btnClear.Text = "Clear";
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Font = new Font("Arial", 12,FontStyle.Bold);
+            this.btnClear.ForeColor = System.Drawing.Color.FromArgb(33,33,33);
+            this.btnClear.BackColor = System.Drawing.Color.FromArgb(230,50,70);
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
 
             this.CPlaylist.Location = new System.Drawing.Point(320, 285);
@@ -113,6 +121,8 @@ namespace GUI
             this.CPlaylist.Text = "Enter";
             this.CPlaylist.UseVisualStyleBackColor = true;
             this.CPlaylist.Font = new Font("Arial", 12,FontStyle.Bold);
+            this.CPlaylist.BackColor = System.Drawing.Color.FromArgb(29, 185, 84);
+            this.CPlaylist.ForeColor = System.Drawing.Color.FromArgb(33,33,33);
             this.CPlaylist.Click += new System.EventHandler(this.CPlaylist_Click);
 
             this.PP.Location = new System.Drawing.Point(720, 135);
@@ -122,6 +132,7 @@ namespace GUI
             this.PP.Text = "II |>";
             this.PP.UseVisualStyleBackColor = true;
             this.PP.Font = new Font("Arial", 12,FontStyle.Bold);
+            this.PP.ForeColor = System.Drawing.Color.FromArgb(33,33,33);
             this.PP.Click += new System.EventHandler(this.PP_Click);
 
             this.btnCrearPlaylist.Location = new System.Drawing.Point(420, 285);
@@ -131,6 +142,7 @@ namespace GUI
             this.btnCrearPlaylist.Text = "Create";
             this.btnCrearPlaylist.UseVisualStyleBackColor = true;
             this.btnCrearPlaylist.Font = new Font("Arial", 12,FontStyle.Bold);
+            this.btnCrearPlaylist.ForeColor = System.Drawing.Color.FromArgb(33,33,33);
             this.btnCrearPlaylist.Click += new System.EventHandler(this.btnCrearPlaylist_Click);
 
             // Botón "Eliminar Canción de Playlist"
@@ -141,6 +153,7 @@ namespace GUI
             this.btnEliminarCancion.Text = "Delete";
             this.btnEliminarCancion.UseVisualStyleBackColor = true;
             this.btnEliminarCancion.Font = new Font("Arial", 12,FontStyle.Bold);
+            this.btnEliminarCancion.ForeColor = System.Drawing.Color.FromArgb(33,33,33);
             this.btnEliminarCancion.Click += new System.EventHandler(this.btnEliminarCancion_Click);
 
             // Botón "Actualizar Playlist"
@@ -151,6 +164,7 @@ namespace GUI
             this.btnActualizarPlaylist.Text = "Update";
             this.btnActualizarPlaylist.UseVisualStyleBackColor = true;
             this.btnActualizarPlaylist.Font = new Font("Arial", 12,FontStyle.Bold);
+            this.btnActualizarPlaylist.ForeColor = System.Drawing.Color.FromArgb(33,33,33);
             this.btnActualizarPlaylist.Click += new System.EventHandler(this.btnActualizarPlaylist_Click);
 
             this.btnLista.Location = new System.Drawing.Point(420, 650);
@@ -160,6 +174,7 @@ namespace GUI
             this.btnLista.Text = "Lista";
             this.btnLista.UseVisualStyleBackColor = true;
             this.btnLista.Font = new Font("Arial", 12,FontStyle.Bold);
+            this.btnLista.ForeColor = System.Drawing.Color.FromArgb(33,33,33);
             this.btnLista.Click += new System.EventHandler(this.btnLista_Click);
             
             this.btnPLista.Location = new System.Drawing.Point(520, 650);
@@ -169,8 +184,8 @@ namespace GUI
             this.btnPLista.Text = "Playlists";
             this.btnPLista.UseVisualStyleBackColor = true;
             this.btnPLista.Font = new Font("Arial", 12,FontStyle.Bold);
+            this.btnPLista.ForeColor = System.Drawing.Color.FromArgb(33,33,33);
             this.btnPLista.Click += new System.EventHandler(this.btnPLista_Click);
-
             // 
             // txtServerResponse
             // 
@@ -232,7 +247,6 @@ namespace GUI
             this.criterioH.Text = "Empieza con H";
             this.criterioH.Click += new System.EventHandler(this.criterioH_Click);
 
-            
             //this.AutoScaleDimensions = new System.Drawing.SizeF(3F, 5F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1000, 600);
