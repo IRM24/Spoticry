@@ -2,6 +2,7 @@ using System;
 using System.Windows.Forms;
 using System.Diagnostics;
 using NAudio.Wave;
+using NAudio.CoreAudioApi.Interfaces;
 
 
 namespace GUI
@@ -189,6 +190,26 @@ namespace GUI
         }
         private void btnPLista_Click(object sender, EventArgs e){ //retorna el catalogo de playlists
             fSharpClientProcess.StandardInput.WriteLine("y");
+        }
+        private void Next_Click(object sender, EventArgs e){ //Pasa de cancion durante la reproduccion de playlist
+            fSharpClientProcess.StandardInput.WriteLine("q");
+        }
+        
+        private void Rplaylist_Click(object sender, EventArgs e){
+            string message = txtCancionP.Text; //lee el nombre de la cancion
+
+
+            if (fSharpClientProcess != null && !fSharpClientProcess.HasExited)
+            {   
+                fSharpClientProcess.StandardInput.WriteLine("a");
+                fSharpClientProcess.StandardInput.WriteLine("b");
+                fSharpClientProcess.StandardInput.WriteLine(message); //entra en modo reproduccion musical/cancion y manda el nombre de la cancion
+                txtCancion.Clear();
+            }
+            else
+            {
+                MessageBox.Show("El cliente F# no está en ejecución.");
+            }
         }   
 
     }

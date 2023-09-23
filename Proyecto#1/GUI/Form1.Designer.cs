@@ -23,6 +23,8 @@ namespace GUI
             this.btnEliminarCancion = new System.Windows.Forms.Button();
             this.btnActualizarPlaylist = new System.Windows.Forms.Button();
             this.btnLista = new System.Windows.Forms.Button();
+            this.Rplaylist = new System.Windows.Forms.Button();
+            this.Next = new System.Windows.Forms.Button();
             this.btnPLista = new System.Windows.Forms.Button();
 
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -190,6 +192,27 @@ namespace GUI
             this.btnPLista.Font = new Font("Arial", 12,FontStyle.Bold);
             this.btnPLista.ForeColor = System.Drawing.Color.FromArgb(33,33,33);
             this.btnPLista.Click += new System.EventHandler(this.btnPLista_Click);
+
+            this.Rplaylist.Location = new System.Drawing.Point(320, 335);
+            this.Rplaylist.Name = "Rplaylist";
+            this.Rplaylist.Size = new System.Drawing.Size(90, 40);
+            this.Rplaylist.TabIndex = 1;
+            this.Rplaylist.Text = "PlayP";
+            this.Rplaylist.UseVisualStyleBackColor = true;
+            this.Rplaylist.Font = new Font("Arial", 12,FontStyle.Bold);
+            this.Rplaylist.BackColor = System.Drawing.Color.FromArgb(29, 185, 84);
+            this.Rplaylist.ForeColor = System.Drawing.Color.FromArgb(33,33,33);
+            this.Rplaylist.Click += new System.EventHandler(this.Rplaylist_Click);
+
+            this.Next.Location = new System.Drawing.Point(420, 335);
+            this.Next.Name = "next";
+            this.Next.Size = new System.Drawing.Size(90, 40);
+            this.Next.TabIndex = 1;
+            this.Next.Text = "I>>";
+            this.Next.UseVisualStyleBackColor = true;
+            this.Next.Font = new Font("Arial", 12,FontStyle.Bold);
+            this.Next.ForeColor = System.Drawing.Color.FromArgb(33,33,33);
+            this.Next.Click += new System.EventHandler(this.Next_Click);
             //-------------------------------------------------------------//
 
             //---------------------Menu Criterios------------------------------//
@@ -256,6 +279,8 @@ namespace GUI
             this.Controls.Add(lblMusica);
             this.Controls.Add(lblPlaylist);
             this.Controls.Add(this.btnPLista);
+            this.Controls.Add(this.Next);
+            this.Controls.Add(this.Rplaylist);
             this.Name = "Form1";
             this.Text = "Server Client App";
             this.BackColor = System.Drawing.Color.FromArgb(33,33,33); // Rojo (255, 0, 0)
@@ -286,6 +311,8 @@ namespace GUI
         private System.Windows.Forms.Button btnAdelantar;
         private System.Windows.Forms.Button btnRetrasar;
         private System.Windows.Forms.Button btnClear;
+        private System.Windows.Forms.Button Rplaylist;
+        private System.Windows.Forms.Button Next;
         //-------------------------------------------------------------//
         
 

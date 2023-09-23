@@ -101,6 +101,27 @@ let imprimirPlaylist (playlists: Dictionary<string, List<string>>) =
             Console.Write(" ")
             printfn "  %s" song
 
+//Imprime playlists
+let imprimirPlaylist2 (playlists: Dictionary<string, List<string>>) (nombrePlaylist: string) : List<string> option =
+    printfn "Playlists:"
+    let lista = List<string>() // Crea una lista vacía
+    let mutable contador = 0
+    for kvp in playlists do
+        let playlistName, songs = kvp.Key, kvp.Value
+        if playlistName = nombrePlaylist then
+            printfn "Playlist:%s" playlistName
+            printfn "Canciones:"
+            for song in songs do
+                printfn "  %s" song
+                lista.Add(song) // Agrega la canción a la lista
+                contador <- contador + 1 // Incrementa el contador
+
+    if contador > 0 then
+        Some lista // Devuelve la lista de canciones invertida
+    else
+        None // No se encontraron canciones en la lista de reproducción
+
+
 //Recibe una lista de canciones provenientes del servidor
 let rec recibeListaCanciones (songListBuilder: StringBuilder) (stream: NetworkStream) =
     let buffer = Array.zeroCreate 1024
@@ -289,6 +310,7 @@ let actualizarPlaylist (playlistName: string) (cancionesDesdeServidor: string) =
 //Funcion de entrada principal
 let main =
     try
+        let mutable indiceCancion = 0
         use client = new TcpClient(serverAddr, port)
         use stream = client.GetStream()
 
@@ -330,24 +352,43 @@ let main =
                     reproduceCancion stream
                     client.Close()
                 | "b" -> //Reproducir playlist
+                    //Console.WriteLine("Seleccione la playlist a reproducir")
                     let selectedPlaylist = Console.ReadLine()
-                    if playlists.ContainsKey(selectedPlaylist) then
-                        // Llama a la función para reproducir la playlist seleccionada
-                        match playlists.TryGetValue(selectedPlaylist) with
-                            | true, songList ->
-        
-                                for songName in songList do
-                                    use client = new TcpClient(serverAddr, port)
-                                    use stream = client.GetStream()
-                                    reproduceCancionPlaylist stream songName
-                                    client.Close()
-                                
-                            | false, _ ->
-                                Console.WriteLine("Playlist no encontrada.")
-                    else
-                        Console.WriteLine("Playlist no encontrada.")
-                | _ ->  ()
 
+                    let resultado = imprimirPlaylist2 playlist selectedPlaylist
+                    let mutable contador = 0
+            
+                    match resultado with
+                    | Some canciones -> 
+                        
+                        //printfn "Canciones de la lista de reproducción:\n%s" (String.Join("\n", canciones))
+                        for song in canciones do
+                           
+                            let cancionS = song.ToString()
+                            //Console.WriteLine("Canción reproducida: " + cancionS)
+                            indiceCancion = contador
+                            if contador = 0 then
+                                reproduceCancionPlaylist stream cancionS
+                                client.Close()
+                                stream.Close()
+                                contador <- contador + 1
+
+                            else   
+                                let mutable client2 = new TcpClient(serverAddr, port)
+                                let mutable stream2 = client2.GetStream()
+
+                                let letterBytes = System.Text.Encoding.UTF8.GetBytes("a")
+                                stream2.Write(letterBytes, 0, letterBytes.Length)
+                                let letterBytes = System.Text.Encoding.UTF8.GetBytes("b")
+                                stream2.Write(letterBytes, 0, letterBytes.Length)
+                                reproduceCancionPlaylist stream2 cancionS
+                                client2.Close()
+                                stream2.Close()
+                       
+                      
+                    | None -> printfn "La lista de reproducción no se encontró."
+   
+                | _ ->  ()
             | "b" -> //Acciones relacionadas con criterios de busqueda
                 
                 //Console.WriteLine("a. Canciones en Espannol")
