@@ -18,6 +18,7 @@ import (
 	"net"
 )
 
+// Se define la estructura de la cancion
 type cancion struct {
 	nombre   string
 	artista  string
@@ -29,15 +30,14 @@ type listaCanciones []cancion
 
 var lCanciones listaCanciones
 
+// Funcion para agregar canciones a la lista de canciones
 func (l *listaCanciones) agregarCancion(nombre string, artista string, genero string, direccion string) {
 	if l.buscarCancionIndice(nombre) == -1 {
 		*l = append(*l, cancion{nombre: nombre, artista: artista, genero: genero, direcion: direccion})
 	}
-	//if l.buscarCancionIndice(nombre) == 1 { // revisar esa validacion
-	//	fmt.Println("Ya existe esta canción")
-	//}
 }
 
+// Funcion que elimina una cancion de una lista
 func (l *listaCanciones) EliminarCancion(nombre string) {
 	var prod, err = l.buscarCancion(nombre)
 	var indice = l.buscarCancionIndice(nombre)
@@ -51,8 +51,10 @@ func (l *listaCanciones) EliminarCancion(nombre string) {
 
 }
 
+// Direccion relativa de las canciones, los archivos mp3 deben estar dentro de la misma carpeta que el archivo main.go
 var direccionR = "./"
 
+// Funcion que llena de canciones llamando a agrega cancion
 func llenarDatos() {
 	lCanciones.agregarCancion("Hasta Que Me Olvides", "Luis Miguel", "Bolero", direccionR+"HastaQueMeOlvides.mp3")
 	lCanciones.agregarCancion("Te Necesito", "Luis Miguel", "Bolero", direccionR+"TeNecesito.mp3")
@@ -61,12 +63,9 @@ func llenarDatos() {
 	lCanciones.agregarCancion("How Deep Is Your Love", "Bee Gees", "Soft Rock", direccionR+"HowDeepIsYourLove.mp3")
 	lCanciones.agregarCancion("Que Me Des Tu Carinno", "Juan Luis Guerra", "Bachata", direccionR+"QueMeDesTuCarinno.mp3")
 	lCanciones.agregarCancion("Human Nature", " Michael Jackson", "Pop", direccionR+"HumanNature.mp3")
-	//lCanciones.agregarCancion("Heat Above", " Michael Jackson", "Pop", direccionIan+"HeatAbove.mp3")
-	//lCanciones.agregarCancion("Rock With You", " Michael Jackson", "Pop", direccionIan+"RockWithYou.mp3")
-	//lCanciones.agregarCancion("When we were young", " Michael Jackson", "Pop", direccionIan+"WhenWeWereYoung.mp3")
-
 }
 
+// Envio de lista de canciones al cliente
 func EnvioListaCanciones(conn net.Conn) {
 	var buffer bytes.Buffer
 	buffer.WriteString("Lista de Canciones:\n")
@@ -83,7 +82,8 @@ func EnvioListaCanciones(conn net.Conn) {
 	fmt.Println("Lista de canciones enviada al cliente.")
 }
 
-func (l *listaCanciones) buscarCancion(nombre string) (*cancion, int) { //el retorno es el índice del producto encontrado y -1 si no existe
+// el retorno es el índice del producto encontrado y -1 si no existe
+func (l *listaCanciones) buscarCancion(nombre string) (*cancion, int) {
 	var error = -1
 	var c *cancion = nil
 	var i int
@@ -96,6 +96,7 @@ func (l *listaCanciones) buscarCancion(nombre string) (*cancion, int) { //el ret
 	return c, error
 }
 
+// Busca y agrega la direccion de un archivo mp3
 func (l *listaCanciones) buscarDireccionCancion(nombre string) string {
 	var direccion string
 	var i int
@@ -107,17 +108,19 @@ func (l *listaCanciones) buscarDireccionCancion(nombre string) string {
 	return direccion
 }
 
+// Busca una cancion por indice y retorna validar =! -1 en caso de encontrarla
 func (l *listaCanciones) buscarCancionIndice(nombre string) int {
 	var validar = -1
 	var i int
 	for i = 0; i < len(*l); i++ {
-		if (*l)[i].nombre == nombre { //&& (*l)[i].artista == artista sera necesario validar tambien el artista?
+		if (*l)[i].nombre == nombre {
 			validar = i
 		}
 	}
 	return validar
 }
 
+// Determina la duracion de una cancion
 func DuracionCancion(cancion string) float64 {
 	file, err := os.Open(cancion)
 	// Abre el archivo MP3
@@ -152,6 +155,7 @@ func (l *listaCanciones) DuracionTodasCanciones() listaCanciones {
 	return cancionesFiltradas
 }
 
+// Detecta si la cancion esta en espannol segun articulos y palabras claves
 func CancionEnEspanol(titulo string) int {
 	palabrasClaveEspanol := []string{"la", "te", "que", "me", "si", "ya", "querida"}
 
@@ -167,6 +171,7 @@ func CancionEnEspanol(titulo string) int {
 	return -1
 }
 
+// Retorna canciones en espannol
 func (l *listaCanciones) CancionesEspannol() listaCanciones {
 	var cancionesFiltradas listaCanciones
 	for _, cancion := range *l {
@@ -189,6 +194,7 @@ func (l *listaCanciones) CancionesEmpiezaConH() listaCanciones {
 	return cancionesFiltradas
 }
 
+// Esta funcion no se utiliza activamente, pero permite annadir canciones desde consola
 func AgregarCancionConsola() {
 	fmt.Println("Ingresa el nombre de la cancion: ")
 	reader := bufio.NewReader(os.Stdin) // permite leer una cadena de chars desde consola
@@ -213,6 +219,7 @@ func AgregarCancionConsola() {
 	lCanciones.agregarCancion(nombre, artista, genero, direccion)
 }
 
+// Esta funcion no se utiliza activamente, pero permite eliminar canciones desde consola
 func EliminarCancionConsola() {
 	fmt.Println("Ingresa el nombre de la cancion a eliminar: ")
 	reader := bufio.NewReader(os.Stdin) // permite leer una cadena de chars desde consola
@@ -223,6 +230,7 @@ func EliminarCancionConsola() {
 	lCanciones.EliminarCancion(nombre)
 }
 
+// Esta funcion no se utiliza activamente, pero permite imprimir canciones en consola
 func ImpresionListaCanciones() {
 	fmt.Println("Lista de Canciones:")
 	for _, cancion := range lCanciones {
@@ -231,28 +239,7 @@ func ImpresionListaCanciones() {
 	}
 }
 
-/*
-	func sendSongListToClient(conn net.Conn) {
-		fmt.Println("Enviando lista de canciones al cliente...")
-
-		// Itera sobre la lista de canciones y envía los detalles de cada canción al cliente
-		for _, cancion := range lCanciones {
-			songInfo := fmt.Sprintf(cancion.nombre)
-			_, err := conn.Write([]byte(songInfo))
-			if err != nil {
-				fmt.Println("Error al enviar datos al cliente:", err)
-				return
-			}
-		}
-
-		// Indica al cliente que la lista de canciones ha sido enviada
-		_, err := conn.Write([]byte("Lista de canciones enviada."))
-		if err != nil {
-			fmt.Println("Error al enviar datos al cliente:", err)
-			return
-		}
-	}
-*/
+// Envia canciones disponibles para reproduccion al cliente
 func sendSongListToClient(conn net.Conn) {
 	fmt.Println("Enviando lista de canciones al cliente...")
 
@@ -272,6 +259,7 @@ func sendSongListToClient(conn net.Conn) {
 	}
 }
 
+// Envia canciones que duran menos de 4 minutos al cliente
 func EnviarCancionesDuracion(conn net.Conn) {
 	fmt.Println("Enviando lista de canciones al cliente con duración menor a 4 minutos...")
 	cancionesFiltradas := lCanciones.DuracionTodasCanciones()
@@ -292,6 +280,7 @@ func EnviarCancionesDuracion(conn net.Conn) {
 	}
 }
 
+// Envia canciones que empiecen con la letra H al cliente
 func EnviarCancionesH(conn net.Conn) {
 	fmt.Println("Enviando lista de canciones al cliente que empiezan con 'H'...")
 	cancionesFiltradas2 := lCanciones.CancionesEmpiezaConH()
@@ -312,6 +301,7 @@ func EnviarCancionesH(conn net.Conn) {
 	}
 }
 
+// Envia canciones que esten en espannol al cliente
 func EnviarCancionesEspannol(conn net.Conn) {
 	fmt.Println("Enviando lista de canciones al cliente que son en Espannol'...")
 	cancionesFiltradas2 := lCanciones.CancionesEspannol()
@@ -332,6 +322,7 @@ func EnviarCancionesEspannol(conn net.Conn) {
 	}
 }
 
+// Esta funcion no se utiliza de manera activa, pero permite detectar si una cancion existe o no en el servidor
 func CompruebaExisteCancion(conn net.Conn) {
 	// Leer el nombre de la canción del cliente.
 	buffer := make([]byte, 1024)
@@ -360,10 +351,11 @@ func CompruebaExisteCancion(conn net.Conn) {
 	}
 }
 
+// Funcion que se encarga de manejar conexion con el cliente
 func handleConnection(conn net.Conn) {
 	defer conn.Close()
 
-	// Después de recibir la letra del cliente
+	// Después de recibir la instruccion del cliente
 	buffer := make([]byte, 1)
 	n, err := conn.Read(buffer)
 	if err != nil {
@@ -373,7 +365,7 @@ func handleConnection(conn net.Conn) {
 	letra := string(buffer[0])
 
 	switch letra {
-	case "a":
+	case "a": //Reproduccion de musica, ya sea una cancion o playlist
 
 		buffer := make([]byte, 1)
 		n, err = conn.Read(buffer)
@@ -383,7 +375,7 @@ func handleConnection(conn net.Conn) {
 		}
 		letra3 := string(buffer[0])
 
-		if letra3 == "a" {
+		if letra3 == "a" { //Reproduccion de una cancion singular
 			// Recibir el nombre de la canción del cliente
 			buffer = make([]byte, 1024)
 			n, err = conn.Read(buffer)
@@ -409,7 +401,7 @@ func handleConnection(conn net.Conn) {
 
 			fmt.Println("Canción enviada:", songName)
 		}
-		if letra3 == "b" {
+		if letra3 == "b" { //Reproduccion de una playlist
 			// Recibir el nombre de la canción del cliente
 			buffer = make([]byte, 1024)
 			n, err = conn.Read(buffer)
@@ -436,10 +428,10 @@ func handleConnection(conn net.Conn) {
 			fmt.Println("Canción enviada:", songName)
 		}
 
-	case "b":
-		handleConnectionCriterios(conn)
+	case "b": //Criterios de busqueda
+		handleConnectionCriterios(conn) //Funcion que maneja los criterios de busqueda
 
-	case "c":
+	case "c": //Actividades relacionadas con playlists
 		buffer = make([]byte, 1024)
 		n, err = conn.Read(buffer)
 		if err != nil {
@@ -447,22 +439,19 @@ func handleConnection(conn net.Conn) {
 			return
 		}
 		opcion := string(buffer[:n])
-		if opcion == "a" {
+		if opcion == "a" { //Crear una nueva playlist
 			fmt.Println("Cliente está creando una nueva playlist.")
 		}
-		if opcion == "b" {
+		if opcion == "b" { //Borrar una cancion de una playlist
 			fmt.Println("Cliente está borrando una cancion.")
 		}
-		if opcion == "c" {
-			//EliminarCancionConsola()
+		if opcion == "c" { //Actualizar playlist
 			fmt.Println("Cliente está actualizando una playlist.")
-			//sendSongListToClient(conn)
 			EnvioListaCanciones(conn)
 		}
-		//CompruebaExisteCancion(conn)
-	case "l":
+	case "l": //Enviar catalogo de canciones
 		sendSongListToClient(conn)
-	case "q":
+	case "q": //Salir del menu
 		// El cliente quiere salir del menú
 		fmt.Println("Cliente ha salido del menú.")
 		break
@@ -473,6 +462,7 @@ func handleConnection(conn net.Conn) {
 	}
 }
 
+// Funcion que se encarga de manejar casos de criterios de busqueda
 func handleConnectionCriterios(conn net.Conn) {
 	// Después de recibir el letra del cliente
 	buffer := make([]byte, 1)
@@ -484,39 +474,41 @@ func handleConnectionCriterios(conn net.Conn) {
 	letra := string(buffer[0])
 
 	if letra == "a" {
-		EnviarCancionesEspannol(conn) // lista de reproduccion
+		//Canciones en espannol
+		EnviarCancionesEspannol(conn)
 	}
 	if letra == "b" {
+		//Canciones Menores a 4 minuts
 		EnviarCancionesDuracion(conn)
 	}
 	if letra == "c" {
+		//Canciones que empiezan con la letra H
 		EnviarCancionesH(conn)
 	}
 }
 
+// Funcion principal de entrada Main
 func main() {
-	dir, err := os.Getwd()
+	dir, err := os.Getwd() //Detecta e imprime el directorio actual, funcionalidad meramente de verificacion
 	if err != nil {
 		fmt.Println("Error:", err)
 	} else {
 		fmt.Println("Current directory:", dir)
 	}
 
-	files, err := ioutil.ReadDir(".")
-	if err != nil {
+	files, err := ioutil.ReadDir(".") //Lee los archivos que se encuentran en el mismo directorio en el que esta el proyecot main.go
+	if err != nil {                   //Aqui deben estar los archivos mp3, ya que la ruta relativa busca en este mismo directorio las canciones
 		log.Fatal(err)
 	}
 
-	// Imprime los nombres de los archivos
+	// Imprime los nombres de los archivos para verificar que las canciones esten en el mismo directorio
 	for _, file := range files {
 		fmt.Println(file.Name())
 	}
 
-	llenarDatos()
-	//ImpresionListaCanciones()
-	//AgregarCancionConsola()
-	//EliminarCancionConsola()
-	port := "8081"
+	llenarDatos() //Llena los datos con las canciones
+
+	port := "8081" //Puerto elegido
 	listener, err := net.Listen("tcp", ":"+port)
 	if err != nil {
 		fmt.Println("Error al iniciar el servidor:", err)
@@ -524,7 +516,7 @@ func main() {
 	}
 	defer listener.Close()
 
-	fmt.Println("Servidor escuchando en el puerto", port)
+	fmt.Println("Servidor escuchando en el puerto", port) //Confirma el puerto
 	for {
 		conn, err := listener.Accept()
 		if err != nil {
@@ -532,6 +524,6 @@ func main() {
 			continue
 		}
 
-		go handleConnection(conn)
+		go handleConnection(conn) //Espera la conexion del cliente
 	}
 }

@@ -6,9 +6,9 @@ namespace GUI
         // Declaraciones de componentes generadas automáticamente por Visual Studio
         private System.ComponentModel.IContainer components = null;
 
-        // Reemplaza este método con tu propio código de inicialización de componentes si es necesario
         private void InitializeComponent()
         {
+            //----------------------Inicializado de componentes--------------//
             this.txtCancion = new System.Windows.Forms.TextBox();
             this.btnReproducir = new System.Windows.Forms.Button();
             this.txtServerResponse = new System.Windows.Forms.TextBox();
@@ -25,8 +25,6 @@ namespace GUI
             this.btnLista = new System.Windows.Forms.Button();
             this.btnPLista = new System.Windows.Forms.Button();
 
-            
-            
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.criterioEspanol = new System.Windows.Forms.ToolStripMenuItem();
@@ -35,9 +33,9 @@ namespace GUI
             Label lblMusica = new Label();
             Label lblPlaylist = new Label();
             this.SuspendLayout();
-            // 
-            // txtCancion
-            // 
+            //-------------------------------------------------------------//
+
+            //---------------------Espacios de texto---------------------------//
             this.txtCancion.Location = new System.Drawing.Point(320, 100);
             this.txtCancion.Name = "txtCancion";
             this.txtCancion.Size = new System.Drawing.Size(300, 20);
@@ -59,9 +57,17 @@ namespace GUI
             lblPlaylist.ForeColor = Color.White;
             lblPlaylist.Location = new System.Drawing.Point(320, 200); 
             lblPlaylist.AutoSize = true;
-            // 
-            // botones
-            // 
+            
+            this.txtServerResponse.Location = new System.Drawing.Point(1, 30);
+            this.txtServerResponse.Multiline = true;
+            this.txtServerResponse.Name = "txtServerResponse";
+            this.txtServerResponse.ReadOnly = true;
+            this.txtServerResponse.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtServerResponse.Size = new System.Drawing.Size(300, 700);
+            this.txtServerResponse.TabIndex = 2;
+            //-------------------------------------------------------------//
+            
+            //---------------------------Botones--------------------------//
             this.btnReproducir.Location = new System.Drawing.Point(320, 135);
             this.btnReproducir.Name = "Reproducir";
             this.btnReproducir.Size = new System.Drawing.Size(90, 40);
@@ -145,7 +151,6 @@ namespace GUI
             this.btnCrearPlaylist.ForeColor = System.Drawing.Color.FromArgb(33,33,33);
             this.btnCrearPlaylist.Click += new System.EventHandler(this.btnCrearPlaylist_Click);
 
-            // Botón "Eliminar Canción de Playlist"
             this.btnEliminarCancion.Location = new System.Drawing.Point(520, 285);
             this.btnEliminarCancion.Name = "EliminarCancion";
             this.btnEliminarCancion.Size = new System.Drawing.Size(90, 40);
@@ -156,7 +161,6 @@ namespace GUI
             this.btnEliminarCancion.ForeColor = System.Drawing.Color.FromArgb(33,33,33);
             this.btnEliminarCancion.Click += new System.EventHandler(this.btnEliminarCancion_Click);
 
-            // Botón "Actualizar Playlist"
             this.btnActualizarPlaylist.Location = new System.Drawing.Point(620, 285);
             this.btnActualizarPlaylist.Name = "ActualizarPlaylist";
             this.btnActualizarPlaylist.Size = new System.Drawing.Size(90, 40);
@@ -186,19 +190,9 @@ namespace GUI
             this.btnPLista.Font = new Font("Arial", 12,FontStyle.Bold);
             this.btnPLista.ForeColor = System.Drawing.Color.FromArgb(33,33,33);
             this.btnPLista.Click += new System.EventHandler(this.btnPLista_Click);
-            // 
-            // txtServerResponse
-            // 
-            this.txtServerResponse.Location = new System.Drawing.Point(1, 30);
-            this.txtServerResponse.Multiline = true;
-            this.txtServerResponse.Name = "txtServerResponse";
-            this.txtServerResponse.ReadOnly = true;
-            this.txtServerResponse.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtServerResponse.Size = new System.Drawing.Size(300, 700);
-            this.txtServerResponse.TabIndex = 2;
-            //
-            //Menu
-            //
+            //-------------------------------------------------------------//
+
+            //---------------------Menu Criterios------------------------------//
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
                 this.fileToolStripMenuItem
             });
@@ -216,7 +210,6 @@ namespace GUI
             criterio4.Font = nuevaFuente;
             criterioH.Font = nuevaFuente;
 
-            // Configurar las opciones del menú desplegable
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
                 this.criterioEspanol,
                 this.criterioH,
@@ -226,28 +219,24 @@ namespace GUI
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "Criterios";
             this.fileToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(255, 255, 255);
-            //this.criterioEspanol.Click += new System.EventHandler(this.criterioEspanol_Click);
-
 
             this.criterioEspanol.Name = "criterioEspanol";
             this.criterioEspanol.Size = new System.Drawing.Size(152, 22);
             this.criterioEspanol.Text = "Canciones Español";
             this.criterioEspanol.Click += new System.EventHandler(this.criterioEspanol_Click);
 
-            
-            // Opción Open
             this.criterio4.Name = "4minutos";
             this.criterio4.Size = new System.Drawing.Size(152, 22);
             this.criterio4.Text = "Menores a 4 minutos";
             this.criterio4.Click += new System.EventHandler(this.criterio4_Click);
             
-            // Opción Save
             this.criterioH.Name = "EmpiezaH";
             this.criterioH.Size = new System.Drawing.Size(152, 22);
             this.criterioH.Text = "Empieza con H";
             this.criterioH.Click += new System.EventHandler(this.criterioH_Click);
-
-            //this.AutoScaleDimensions = new System.Drawing.SizeF(3F, 5F);
+            //-------------------------------------------------------------//
+            
+            //-----------------Annaden Controles--------------------------//
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1000, 600);
             this.Controls.Add(this.txtServerResponse);
@@ -276,23 +265,15 @@ namespace GUI
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+        //-------------------------------------------------------------//
 
-        // Debes agregar estos campos privados para representar los componentes
+        //----------------------------TextBox---------------------------//
         private System.Windows.Forms.TextBox txtCancion;
-        private System.Windows.Forms.Button btnReproducir;
-        private System.Windows.Forms.Button btnParar;
         private System.Windows.Forms.TextBox txtServerResponse;
         private System.Windows.Forms.TextBox txtCancionP;
-        private System.Windows.Forms.Button btnAdelantar;
-        private System.Windows.Forms.Button btnRetrasar;
-        private System.Windows.Forms.Button btnClear;
+        //-------------------------------------------------------------//
 
-        
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem criterioEspanol;
-        private System.Windows.Forms.ToolStripMenuItem criterioH;
-        private System.Windows.Forms.ToolStripMenuItem criterio4;
+        //------------------------Botones-----------------------------//
         private System.Windows.Forms.Button CPlaylist;
         private System.Windows.Forms.Button PP;
         private System.Windows.Forms.Button btnCrearPlaylist;
@@ -300,6 +281,23 @@ namespace GUI
         private System.Windows.Forms.Button btnActualizarPlaylist;
         private System.Windows.Forms.Button btnLista;
         private System.Windows.Forms.Button btnPLista;
+        private System.Windows.Forms.Button btnReproducir;
+        private System.Windows.Forms.Button btnParar;        
+        private System.Windows.Forms.Button btnAdelantar;
+        private System.Windows.Forms.Button btnRetrasar;
+        private System.Windows.Forms.Button btnClear;
+        //-------------------------------------------------------------//
+        
+
+        //---------------------Menu Criterios------------------------------//
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem criterioEspanol;
+        private System.Windows.Forms.ToolStripMenuItem criterioH;
+        private System.Windows.Forms.ToolStripMenuItem criterio4;
+        //-------------------------------------------------------------//
+        
+
 
     }
 }
